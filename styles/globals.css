@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -13,4 +12,40 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.text-header {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.work-logo {
+  min-width: 24px;
+  min-height: 24px;
+  max-width: 24px;
+  max-height: 24px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 8px solid transparent;
+  cursor: pointer;
+}
+
+.homework-logo {
+  border-color: #389e0d;
+}
+
+.hardwork-logo {
+  border-color: #f5222d;
+}
+
+.classwork-logo {
+  border-color: #1890ff;
+}
+
+.alert-logo {
+  border-color: #722ed1;
+}
+
+.vebinar-logo {
+  border-color: #a0d911;
 }
