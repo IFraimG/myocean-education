@@ -57,7 +57,7 @@ function DefaultLayout({ children }) {
             onCollapse={(collapsed) => setCollapse(collapsed)} 
             className={styles.layout__sidebar}
           >
-            <Menu theme="dark" defaultSelectedKeys={['2']} mode="vertical">
+            <Menu theme="dark" mode="vertical">
               <div key="1" className={styles.sidebar__button}>
                 { !collapsed ? <DoubleLeftOutlined 
                     className={styles.sidebar__close} 
