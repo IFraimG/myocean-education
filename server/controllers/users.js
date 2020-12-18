@@ -1,4 +1,4 @@
-let Students = require("../models/Students")
+const Students = require("../models/Students")
 
 const dayjs = require("dayjs")
 const dayjsLocalFormat = require("dayjs/plugin/localizedFormat");

@@ -4,12 +4,13 @@ import thunkMiddleware from "redux-thunk"
 import appReducer from "./reducers/app"
 import profileReducer from "./reducers/profile"
 import adminReducer from "./reducers/admin"
+import authReducer from "./reducers/auth"
 
 // @ts-ignore
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
 let reducers = combineReducers({
-  app: appReducer, profile: profileReducer, admin: adminReducer
+  app: appReducer, profile: profileReducer, admin: adminReducer, auth: authReducer
 })
 
 export type AppType = ReturnType<typeof reducers>

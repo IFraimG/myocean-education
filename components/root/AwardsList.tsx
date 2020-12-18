@@ -16,7 +16,6 @@ const AwardsList: React.FC<defaultProps> = ({awards}) => {
           <div className={styles.root__awards}>
             {
               awards.map((item: awardType, index: number) => {
-                console.log(item);
                 return (
                   <div key={index} className={styles.root__awards__item}>
                     <img className={styles.root__awards__logo} src={"/pupil" + item.src} alt="Фото достижения" />
