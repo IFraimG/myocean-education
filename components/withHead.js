@@ -7,7 +7,6 @@ const WithHead = ({title, metaData = null, linkData = null}) => {
     <>
       <Head>
         <title>{title}</title>
-        <meta name="author" content="Александр Кулагин" />
 
         { metaData != null ? metaData.map((metaObject, index) => {
           return <meta key={index} name={metaObject.metaName} content={metaObject.contentData} />

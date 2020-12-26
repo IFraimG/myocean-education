@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, memo } from "react";
+import { useEffect, useState, memo } from "react";
 import dynamic from "next/dynamic"
-const MyHeader = dynamic(() => import('./Header'), { ssr: false });
+const MyHeader = dynamic(() => import('./header/HeaderContainer'), { ssr: false });
 
 import { useRouter } from "next/router"
 import { Layout, Menu } from "antd";

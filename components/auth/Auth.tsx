@@ -14,9 +14,12 @@ const Auth: React.FC<PropsType> = ({loginUserThunk, isAuth}) => {
   const [isPassword, setVisiblePassword] = useState(false)
   const router = useRouter()
 
+  useEffect(() => {
+    if (isAuth) router.push("/root")
+  }, [isAuth])
+  
   const onFinish = (values: userLogin) => {
     loginUserThunk(values)
-    if (isAuth) router.push("/root")
   }
 
   useEffect(() => {

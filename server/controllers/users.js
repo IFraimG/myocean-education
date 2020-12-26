@@ -4,18 +4,6 @@ const dayjs = require("dayjs")
 const dayjsLocalFormat = require("dayjs/plugin/localizedFormat");
 dayjs.extend(dayjsLocalFormat)
 
-module.exports.getStudents = async (req, res) => {
-  let user = await Students.findByOne({where: {id: req.params.id}})
-  if (user == null) res.status(404).send("Данного пользователя не существует")
-  else res.send(user)
-};
-
-module.exports.getAllUsers = async (req, res) => {
-  let users = await Students.findAll()
-  console.log(users);
-  res.send(users)
-}
-
 module.exports.createStudent = async (req, res) => {
   const data = req.body
   let userData = {

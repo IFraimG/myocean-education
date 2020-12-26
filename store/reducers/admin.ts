@@ -1,8 +1,7 @@
+import { setCreateUserAction, getAllUsersAction, setSpliceLoadingAction, setUserDataAction } from '../actions/admin';
+import { HYDRATE } from "next-redux-wrapper"
 import usersRequests from "../api/users"
-
-const GET_ALL_USERS: string = "GET_ALL_USERS"
-const SET_CREATE_USER: string = "SET_CREATE_USER"
-const SET_SPLICE_LOADING: string = "SET_SPLICE_LOADING"
+import { adminTypes } from "../types"
 
 export interface sliceUser {
   firstName: string,
@@ -18,35 +17,31 @@ export interface userFirstDataValues {
   password: string
 }
 
-type stateType = {
+export interface stateAdminType {
   fullUsers: Array<any> | null,
   spliceUsers: Array<any>
   isCreateUser: boolean,
-  isSpliceUsersLoading: boolean
+  isSpliceUsersLoading: boolean,
+  userFullData: any
 }
-const stateDefault: stateType = {
+const stateDefault: stateAdminType = {
   fullUsers: [],
   spliceUsers: [],
   isCreateUser: false,
-  isSpliceUsersLoading: false
+  isSpliceUsersLoading: false,
+  userFullData: null
 }
 
-type allUsersActionType = {type: typeof GET_ALL_USERS, payload: {usersData: Array<any> | null, spliceData: Array<any> | null | undefined}}
-type setCreateUserActionType = {type: typeof SET_CREATE_USER}
-type setSpliceLoadingAT = {type: typeof SET_SPLICE_LOADING}
-
-const AdminReducer = (state = stateDefault, action: any): stateType => {
+const AdminReducer = (state = stateDefault, action: any): stateAdminType => {
   switch (action.type) {
-    case GET_ALL_USERS: return {...state, fullUsers: action.payload.usersData, spliceUsers: action.payload.spliceData}
-    case SET_CREATE_USER: return {...state, isCreateUser: !state.isCreateUser}
-    case SET_SPLICE_LOADING: return {...state, isSpliceUsersLoading: !state.isSpliceUsersLoading}
+    case HYDRATE: return { ...state, ...action.payload }
+    case adminTypes.GET_ALL_USERS: return {...state, fullUsers: action.payload.usersData, spliceUsers: action.payload.spliceData}
+    case adminTypes.SET_CREATE_USER: return {...state, isCreateUser: !state.isCreateUser}
+    case adminTypes.SET_SPLICE_LOADING: return {...state, isSpliceUsersLoading: !state.isSpliceUsersLoading}
+    case adminTypes.GET_CURRENT_USER: return { ...state, userFullData: action.payload }
     default: return {...state}
   }
 }
-
-export const getAllUsersAction = (usersData: Array<any> | null, spliceData: Array<any> | null | undefined): allUsersActionType => ({ type: GET_ALL_USERS, payload: {usersData, spliceData}})
-export const setCreateUserAction = (): setCreateUserActionType => ({type: SET_CREATE_USER})
-export const setSpliceLoadingAction = (): setSpliceLoadingAT => ({type: SET_SPLICE_LOADING})
 
 export const userCreateThunk = (userData: userFirstDataValues) => async (dispatch: any) => {  
   let res = await usersRequests.createUser(userData)
@@ -55,10 +50,7 @@ export const userCreateThunk = (userData: userFirstDataValues) => async (dispatc
 export const getCurrentUserThunk = (id: string) => async (dispatch: any) => {
   let data = await usersRequests.getCurrentUser(id)
   console.log(data);
-}
-export const dropUsersThunk = (usersID: Array<string>) => async (dispatch: any) => {
-  let data = await usersRequests.dropUser(usersID)
-
+  dispatch(setUserDataAction(data))
 }
 export const getAllUsersThunk = () => async (dispatch: any) => {
   let data = await usersRequests.getAllUsers()
@@ -68,6 +60,9 @@ export const getAllUsersThunk = () => async (dispatch: any) => {
   }))
   dispatch(getAllUsersAction(data, spliceData))
   dispatch(setSpliceLoadingAction())
+}
+export const dropUsersThunk = (usersID: Array<string>) => async (dispatch: any) => {
+  await usersRequests.dropUser(usersID)
 }
 
 export default AdminReducer

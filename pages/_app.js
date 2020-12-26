@@ -1,49 +1,39 @@
-import { Provider } from "react-redux"
 import { useRouter } from "next/router"
-import store from "../store/redux-store"
 import DefaultLayout from "../components/layout"
 import 'antd/dist/antd.css';
 import '../styles/globals.css'
-import { connect } from "react-redux";
-import { checkAuth } from "../store/reducers/auth";
-import { useEffect } from "react";
-import App from "../components/app"
+import AppNext from "next/app"
+import { wrapperStore } from "../store/redux-store"
 
-// function App(props) {
-//   const router = useRouter()
-//   console.log(router);
-//   const Component = props.Component
-//   props.checkAuth()
-//   // if (!props.isAuth && router.asPath != "auth") router.push("/auth", undefined, {shallow: true})
-//   if (router.asPath != "/auth" && props.isAuth) {
-//     return (
-//       <>
-//         <DefaultLayout>
-//           <Component {...props.pageProps}  />
-//         </DefaultLayout>
-//         : <Component {...props.pageProps}  />
-//       </>
-//     )
-//   } else {
-    
-//     return <AuthPage {...props} />
-//   }
-// }
+function App(props) {
+  const router = useRouter()
+  const { Component, pageProps } = props;
+    if (router.asPath == "/auth") {
+      return <Component pageProps={pageProps} />
+    } else {
+      return (
+        <DefaultLayout>
+          <Component pageProps={pageProps} router={router} />
+        </DefaultLayout>
+      )
+    }
+  // }
+}
 
-const mapStateToProps = (state) => {
-  return {
-    isAuth: state.auth.isAuth
+class WrapperApp extends AppNext {
+  render() {
+    const { Component, pageProps, router } = this.props;
+    console.log(this.props);
+    if (router.asPath == "/auth") {
+      return <Component pageProps={pageProps} />
+    } else {
+      return (
+        <DefaultLayout>
+          <Component pageProps={pageProps} />
+        </DefaultLayout>
+      )
+    }
   }
 }
 
-const AppConnect = connect(mapStateToProps, {checkAuth})(App)
-
-function AppImportant({ Component, pageProps }) {
-  return <>
-    <Provider store={store}>
-      <AppConnect Component={Component} pageProps={pageProps} />
-    </Provider>
-  </>
-}
-
-export default AppImportant;
+export default wrapperStore.withRedux(App)

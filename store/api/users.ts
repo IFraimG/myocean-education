@@ -2,12 +2,12 @@ import axios from "axios";
 
 const getConfigAxios = axios.create({
   baseURL: "http://localhost:3000/pupil/api",
-  withCredentials: true
+  withCredentials: true,
 })
 
 const usersRequests = {
   createUser: async (usersData: any) => {
-    let res = await axios.post("http://localhost:3000/users/", usersData)
+    let res = await axios.post("http://localhost:3000/users", usersData)
     return res
   },
   getAllUsers: async () => {
@@ -15,7 +15,7 @@ const usersRequests = {
     return res.data
   },
   getCurrentUser: async (userID: string) => {
-    let res = await axios.get("http://localhost:3000/users/" + userID)
+    let res = await getConfigAxios.get(`/users/currentUser?id=${userID}`)
     return res.data
   },
   dropUser: async (usersID: Array<string>) => {

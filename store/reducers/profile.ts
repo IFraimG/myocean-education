@@ -1,5 +1,5 @@
-
-const GET_TASKS: string = "GET_TASKS"
+import { HYDRATE } from 'next-redux-wrapper';
+import { profileTypes } from "../types"
 
 type ActionTypes = getTasksActionType;
 
@@ -36,12 +36,12 @@ export type profileType = {
 
 }
 
-type stateType = {
+export interface stateProfileType {
   coursesList: Array<courseType>,
   profile: profileType
 };
 
-const stateDefault: stateType = {
+const stateDefault: stateProfileType = {
   coursesList: [],
   profile: {
     awards: [
@@ -83,17 +83,18 @@ const stateDefault: stateType = {
   }
 };
 
-function profileReducer(state = stateDefault, action: ActionTypes): stateType {
+function profileReducer(state = stateDefault, action: any): stateProfileType {
   switch (action.type) {
-    case GET_TASKS: {
+    case HYDRATE: return { ...state, ...action.payload }
+    case profileTypes.GET_TASKS: {
       return {...state, coursesList: action.payload }
     }
     default: return {...state}
   }
 }
 
-type getTasksActionType = { type: typeof GET_TASKS, payload: Array<courseType>}
-export const getTasksAction = (data: Array<courseType>): getTasksActionType => ({type: GET_TASKS, payload: data})
+type getTasksActionType = { type: typeof profileTypes.GET_TASKS, payload: Array<courseType>}
+export const getTasksAction = (data: Array<courseType>): getTasksActionType => ({type: profileTypes.GET_TASKS, payload: data})
 
 export const getTasksThunk = () => (dispatch: any) => {
   // СДЕЛАТЬ ЗАПРОС

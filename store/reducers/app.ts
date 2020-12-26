@@ -1,29 +1,33 @@
-type ActionType = editHeaderActionType
+import { editHeader, setModalLgOAction, editHeaderActionType, setModalLgOActionType } from './../actions/app';
+import { HYDRATE } from 'next-redux-wrapper';
+import { appTypes } from "../types"
 
-const EDIT_HEADER: string = "mcedu/app/EDIT_HEADER"
+type ActionType = editHeaderActionType | setModalLgOActionType
 
-type stateType = {
-  isEditHeader: boolean
+export interface stateAppType {
+  isEditHeader: boolean,
+  isModalLogout: boolean
 }
 
-const defaultState: stateType = {
-  isEditHeader: false
+const defaultState: stateAppType = {
+  isEditHeader: false,
+  isModalLogout: false
 }
 
-function AppReducer(state = defaultState, action: ActionType): stateType {
+function AppReducer(state = defaultState, action: any): stateAppType {
   switch (action.type) {
-    case EDIT_HEADER: {
+    case HYDRATE: return { ...state, ...action.payload }
+    case appTypes.EDIT_HEADER: {
       return { ...state, isEditHeader: action.payload }
+    }
+    case appTypes.SET_MODALGO: {
+      return { ...state, isModalLogout: action.payload }
     }
     default: return {...state}
   }
 }
 
-type editHeaderActionType = { type: typeof EDIT_HEADER, payload: boolean }
-export const editHeader = (isTrue: boolean): editHeaderActionType => ({type: EDIT_HEADER, payload: isTrue})
-
-export const thunkEditHeader = (isTrue: boolean) => (dispatch: any) => {
-  dispatch(editHeader(isTrue))
-}
+export const thunkEditHeader = (isTrue: boolean) => (dispatch: any) => dispatch(editHeader(isTrue))
+export const setModalLogout = (isModal: boolean) => (dispatch: any) => dispatch(setModalLgOAction(isModal))
 
 export default AppReducer

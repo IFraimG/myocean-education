@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize")
-const { sequilize } = require("../configs/db")
+const { sequilize } = require("../db")
 const bcrypt = require("bcrypt")
 const dayjs = require("dayjs")
 const dayjsLocalFormat = require("dayjs/plugin/localizedFormat")

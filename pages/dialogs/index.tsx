@@ -1,6 +1,8 @@
+//@ts-ignore
+import Dialogs from "../../components/dialogs/root"
 import HeadComponent from "../../components/withHead"
 
-function ContainerDialogs() {
+function ContainerDialogs({}) {
   return (
     <>
       <HeadComponent
@@ -14,7 +16,7 @@ function ContainerDialogs() {
         ]}
         linkData={[{}]}
       />
-      <div>fergtrs</div>
+      <Dialogs />
     </>
   );
 }

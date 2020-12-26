@@ -121,3 +121,11 @@
     }
   }
 }
+
+@media (max-width: 441px) {
+  .header__left {
+    p {
+      display: none;
+    }
+  }
+}
