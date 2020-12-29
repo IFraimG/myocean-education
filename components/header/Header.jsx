@@ -12,7 +12,7 @@ function MyHeader(props) {
     if (document.documentElement.clientWidth <= 652) setMedia(true);
     else setMedia(false);
   };
-  useEffect(() => props.thunkEditHeader(false), [props.router.route]);
+  useEffect(() => props.editHeader(false), [props.router.route]);
   useEffect(() => checkWidth(), []);
 
   window.addEventListener("resize", checkWidth);
@@ -30,12 +30,12 @@ function MyHeader(props) {
             <a>Александр Кулагин</a>
           </Link>
           <img className={styles.header__profile__logo} src="/pupil/user.png" />
-          <p onClick={() => props.setModalLogout(true)} className={"text-header " + styles.header__logout}>Выйти</p>
+          <p onClick={() => props.setModal(true)} className={"text-header " + styles.header__logout}>Выйти</p>
         </div>
       ) : (
         <div className={styles.menu}>
           <MenuOutlined
-            onClick={() => props.thunkEditHeader(!props.isHeader)}
+            onClick={() =>props.editHeader(!props.isHeader)}
             className={styles.menu__logo}
           />
           {props.isHeader ? (
@@ -45,7 +45,7 @@ function MyHeader(props) {
                   <p>Профиль</p>
                 </Link>
               </div>
-              <div onClick={() => props.setModalLogout(true)} className={styles.menu__link}>
+              <div onClick={() => props.setModal((true))} className={styles.menu__link}>
                 <p>Выйти</p>
               </div>
               <div className={styles.menu__link}>

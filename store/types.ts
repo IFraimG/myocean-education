@@ -1,6 +1,8 @@
 export enum appTypes {
+  EDIT_HEADER_SUCCESS = "myocean/app/EDIT_HEADER_SUCCESS",
   EDIT_HEADER = "myocean/app/EDIT_HEADER",
-  SET_MODALGO = "myocean/app/SET_MODALGO"
+  SET_MODALGO = "myocean/app/SET_MODALGO",
+  SET_MODALGO_SUCCESS = "myocean/app/SET_MODALGO_SUCCESS"
 }
 
 export enum adminTypes {
@@ -15,6 +17,9 @@ export enum authTypes {
 }
 
 export enum profileTypes {
-  GET_TASKS = "myocean/profile/GET_TASKS"
+  GET_TASKS = "myocean/profile/GET_TASKS",
+  GET_TASKS_SUCCESS = "myocean/profile/GET_TASKS_SUCCESS",
+  GET_CURRENT_LESSONS = "myocean/profile/GET_CURRENT_LESSONS",
+  GET_CURRENT_LESSONS_SUCCESS = "myocean/profile/GET_CURRENT_LESSONS_SUCCESS"
 }
 

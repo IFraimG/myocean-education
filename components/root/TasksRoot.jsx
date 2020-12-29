@@ -3,6 +3,8 @@ import { CaretDownOutlined, FlagOutlined, ClockCircleOutlined } from "@ant-desig
 import { Card, Dropdown, Menu, Button, List, Pagination, Row, Col } from "antd";
 import { useState, useEffect } from "react";
 import styles from "../../styles/pupil/root.module.scss";
+import { useDispatch } from "react-redux";
+import {getCurrentLessonsAction} from "../../store/actions/profile"
 
 const SingleWork = ({workData}) => {
   let typeWork = ""
@@ -58,10 +60,11 @@ const SingleWork = ({workData}) => {
 function TasksRoot(props) {
   const [numPage, setNum] = useState(1)
   const [courseCurrent, setCourse] = useState(null)
+  const dispatch = useDispatch()
 
+  console.log(props);
   const getCurrentCourse = (courseID, title) => {
-    props.getCurrentLessons(courseID)
-    console.log(title);
+    dispatch(getCurrentLessonsAction(courseID))
     setCourse(title)
   }
   const setPageCourse = (current, pageSize) => setNum(current)
@@ -69,27 +72,29 @@ function TasksRoot(props) {
   return (
     <div>
       <Card className={styles.root} title="Задания" extra={
-        <Dropdown overlay={
-          <Menu>
-            {props.profile.courses.map((item, index) => {
-              return <Menu.Item onClick={() => getCurrentCourse(item.courseID, item.title)} key={index}>{ item.title }</Menu.Item>
-            })}
-          </Menu>
-        } placement="bottomCenter">
-          <Button>
-            <CaretDownOutlined />
-            { courseCurrent == null ? <> Выбрать курс</> : courseCurrent }
-          </Button>
+        props.profile.profile.courses?.length > 0 ? 
+          <Dropdown overlay={
+            <Menu>
+              {props.profile.profile.courses.map((item, index) => {
+                return <Menu.Item onClick={() => getCurrentCourse(item.courseID, item.title)} key={index}>{ item.title }</Menu.Item>
+              })}
+            </Menu>
+          } placement="bottomCenter">
+            <Button>
+              <CaretDownOutlined />
+              { courseCurrent == null ? <> Выбрать курс</> : courseCurrent }
+            </Button>
         </Dropdown>
+        : ""
       }>
-          { props.coursesList.length > 0 ? (
+          { props.profile.coursesList.length > 0 ? (
             <div className={styles.root__inner}>
               <div className={styles.root__tasklist}>
-                { numPage <= 1 ? <SingleWork workData={props.coursesList[0]} />
-                  : <SingleWork workData={props.coursesList[numPage]} />
+                { numPage <= 1 ? <SingleWork workData={props.profile.coursesList[0]} />
+                  : <SingleWork workData={props.profile.coursesList[numPage]} />
                 }
               </div>
-              <Pagination className={styles.root__paginator} onChange={setPageCourse} defaultPageSize={1} total={props.coursesList.length > 1 ? props.coursesList.length - 1 : props.coursesList.length}  />
+              <Pagination className={styles.root__paginator} onChange={setPageCourse} defaultPageSize={1} total={props.profile.coursesList.length > 1 ? props.profile.coursesList.length - 1 : props.profile.coursesList.length}  />
             </div>
             )
           : <p>У вас нет невыполненных задач, отдыхайте !</p>

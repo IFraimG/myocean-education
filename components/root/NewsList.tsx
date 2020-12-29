@@ -15,7 +15,7 @@ const NewsList: React.FC<defaultProps> = ({news}) => {
         <Link href="/root/news">Посмотреть весь список</Link>
       }>
         <div className={styles.root__news__list}>
-          { news !== null ? 
+          { news != null ? 
               news.map((item, index) => {
                 return (
                   <div key={index} className={styles.root__news__item}>

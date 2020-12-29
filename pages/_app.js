@@ -3,7 +3,9 @@ import DefaultLayout from "../components/layout"
 import 'antd/dist/antd.css';
 import '../styles/globals.css'
 import AppNext from "next/app"
-import { wrapperStore } from "../store/redux-store"
+import wrapperStore from "../store/redux-store"
+import withReduxSaga from 'next-redux-saga'
+import { compose } from "redux";
 
 function App(props) {
   const router = useRouter()
@@ -36,4 +38,4 @@ class WrapperApp extends AppNext {
   }
 }
 
-export default wrapperStore.withRedux(App)
+export default compose(wrapperStore.withRedux, withReduxSaga)(App)
