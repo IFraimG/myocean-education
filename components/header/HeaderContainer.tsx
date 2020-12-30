@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
-import { logout } from "../../store/reducers/auth";
 import { editHeader, setModalLgOAction } from "../../store/actions/app"
 // @ts-ignore
 import Header from "./Header"
+import { logoutAction } from "../../store/actions/auth";
 
 export interface HeaderTypes {
   isModalLogout: boolean,
@@ -23,4 +23,4 @@ const mapStateToProps = (state: any) => {
   return { isHeader: state.app.isEditHeader, isModalLogout: state.app.isModalLogout };
 };
 
-export default connect(mapStateToProps, { logout, setModal: setModalLgOAction, editHeader })(HeaderContainer);
+export default connect(mapStateToProps, { logout: logoutAction, setModal: setModalLgOAction, editHeader })(HeaderContainer);

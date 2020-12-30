@@ -36,12 +36,12 @@ export type profileType = {
 
 export interface stateProfileType {
   coursesList: Array<courseType>,
-  profile: profileType
+  profileData: profileType
 };
 
 const stateDefault: stateProfileType = {
   coursesList: [],
-  profile: {
+  profileData: {
     awards: [
       {title: "Прохождение курса JavaScript", date: "3 ноября 2020", src: "/gramota.png"},
       {title: "Прохождение курса WordPress", date: "15 декабря 2019", src: "/gramota.png"},
@@ -65,15 +65,7 @@ const stateDefault: stateProfileType = {
       { title: "Вводный курс по JavaScript", courseID: "terfsdfds", 
         author: "Александр Кулагин"
       },
-      { title: "WordPress", author: "Александр Кулагин", courseID: "ehrgfdsgrf"
-      },
-      {title: "Вводный курс по TypeScript", courseID: "awfvcxc", author: "Александр Кулагин"
-      },
-      { title: "Алгоритмика", author: "Александр Кулагин", courseID: "asads"
-      },
       { title: "ООП на C++", author: "Александр Кулагин", courseID: "ehrgbvfgrf"
-      },
-      { title: "Python", author: "Александр Кулагин", courseID: "jkioiu"
       },
       { title: "Дискретная математика", author: "Александр Кулагин", courseID: "qqwew"
       }
@@ -83,7 +75,7 @@ const stateDefault: stateProfileType = {
 
 function profileReducer(state = stateDefault, action: any): stateProfileType {
   switch (action.type) {
-    case HYDRATE: return { ...state, ...action.payload }
+    case HYDRATE: return { ...state, ...action.payload.profile }
     case profileTypes.GET_TASKS_SUCCESS: {
       return {...state, coursesList: action.payload }
     }

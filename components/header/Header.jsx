@@ -18,7 +18,7 @@ function MyHeader(props) {
   window.addEventListener("resize", checkWidth);
   return (
     <>
-    <Logout isModal={props.isModalLogout} setModalLogout={props.setModalLogout} logout={props.logout} />
+    <Logout isModal={props.isModalLogout} setModalLogout={props.setModal} logout={props.logout} />
     <header className={styles.header}>
       <div className={styles.header__left}>
         <img className={styles.header__logo} src="/pupil/mshp.png" />

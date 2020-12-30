@@ -2,11 +2,9 @@ import { setModalLgOActionSuccess, editHeaderSuccess, editHeaderActionType, setM
 import { put } from "redux-saga/effects"
 
 export function* AppWorkerModal(action: setModalLgOActionType) {
-  console.log(action.payload);
   yield put(setModalLgOActionSuccess(action.payload))
 }
   
 export function* AppWorkerHeader(action: editHeaderActionType) {
-  console.log(action.payload);
   yield put(editHeaderSuccess(action.payload))
 }

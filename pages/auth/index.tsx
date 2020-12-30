@@ -2,7 +2,8 @@ import { connect } from "react-redux"
 import Auth from "../../components/auth/Auth";
 //@ts-ignore
 import HeadComponent from "../../components/withHead"
-import { loginUserThunk, userLogin } from "../../store/reducers/auth";
+import { setAuthAction } from "../../store/actions/auth";
+import { userLogin } from "../../store/reducers/auth";
 import { AppType } from "../../store/redux-store";
 
 type PropTypes = {
@@ -25,4 +26,4 @@ const mapStateToProps: any = (state: AppType) => {
   }
 }
 
-export default connect(mapStateToProps, {loginUserThunk})(AuthContainer);
+export default connect(mapStateToProps, {loginUserThunk: setAuthAction})(AuthContainer);

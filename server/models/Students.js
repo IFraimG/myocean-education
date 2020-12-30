@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize")
-const { sequilize } = require("../db")
+const { sequilize } = require("../../db")
 const bcrypt = require("bcrypt")
 const dayjs = require("dayjs")
 const dayjsLocalFormat = require("dayjs/plugin/localizedFormat")
@@ -39,6 +39,12 @@ const Student = sequilize.define("Student", {
   dateCreated: {
     type: DataTypes.STRING,
     defaultValue: dayjs().format("LLL")
+  },
+  activeCourses: {
+    type: DataTypes.ARRAY(DataTypes.STRING)
+  },
+  finishedCourses: {
+    type: DataTypes.ARRAY(DataTypes.STRING)
   }
 }, {tableName: "Students", hooks: { beforeCreate: generatePassword, beforeUpdate: generatePassword }})
 

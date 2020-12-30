@@ -1,15 +1,12 @@
 import Link from "next/link"
 import { CaretDownOutlined, FlagOutlined, ClockCircleOutlined } from "@ant-design/icons";
-import { Card, Dropdown, Menu, Button, List, Pagination, Row, Col } from "antd";
-import { useState, useEffect } from "react";
+import { Card, Dropdown, Menu, Button, Pagination } from "antd";
+import { useState } from "react";
 import styles from "../../styles/pupil/root.module.scss";
-import { useDispatch } from "react-redux";
-import {getCurrentLessonsAction} from "../../store/actions/profile"
 
 const SingleWork = ({workData}) => {
   let typeWork = ""
   let typeWorkText = ""
-
   switch(workData.type) {
     case "homework": {
       typeWork = <div className="work-logo homework-logo"></div>;
@@ -60,11 +57,9 @@ const SingleWork = ({workData}) => {
 function TasksRoot(props) {
   const [numPage, setNum] = useState(1)
   const [courseCurrent, setCourse] = useState(null)
-  const dispatch = useDispatch()
 
-  console.log(props);
   const getCurrentCourse = (courseID, title) => {
-    dispatch(getCurrentLessonsAction(courseID))
+    props.getCurrentLessonsAction(courseID)
     setCourse(title)
   }
   const setPageCourse = (current, pageSize) => setNum(current)
@@ -72,10 +67,10 @@ function TasksRoot(props) {
   return (
     <div>
       <Card className={styles.root} title="Задания" extra={
-        props.profile.profile.courses?.length > 0 ? 
+        props.profile.courses?.length > 0 ? 
           <Dropdown overlay={
             <Menu>
-              {props.profile.profile.courses.map((item, index) => {
+              {props.profile.courses.map((item, index) => {
                 return <Menu.Item onClick={() => getCurrentCourse(item.courseID, item.title)} key={index}>{ item.title }</Menu.Item>
               })}
             </Menu>
@@ -87,14 +82,12 @@ function TasksRoot(props) {
         </Dropdown>
         : ""
       }>
-          { props.profile.coursesList.length > 0 ? (
+          { props.coursesList.length > 0 ? (
             <div className={styles.root__inner}>
               <div className={styles.root__tasklist}>
-                { numPage <= 1 ? <SingleWork workData={props.profile.coursesList[0]} />
-                  : <SingleWork workData={props.profile.coursesList[numPage]} />
-                }
+                <SingleWork workData={props.coursesList[numPage - 1]} />
               </div>
-              <Pagination className={styles.root__paginator} onChange={setPageCourse} defaultPageSize={1} total={props.profile.coursesList.length > 1 ? props.profile.coursesList.length - 1 : props.profile.coursesList.length}  />
+              <Pagination className={styles.root__paginator} onChange={setPageCourse} defaultPageSize={1} total={props.coursesList.length}  />
             </div>
             )
           : <p>У вас нет невыполненных задач, отдыхайте !</p>

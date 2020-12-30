@@ -1,0 +1,19 @@
+.courses {
+  &__wrapper {}
+  &__title {}
+  &__tabs {}
+  &__list {}
+  &__card {}
+  &__inner {}
+  &__top {}
+  &__left {
+    max-width: 200px;
+    max-height: 200px;
+  }
+  &__logo {
+    max-width: 100%;
+  }
+  &__middle {}
+  &__right {}
+  &__bottom {}
+}

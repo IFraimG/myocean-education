@@ -8,12 +8,22 @@ export enum appTypes {
 export enum adminTypes {
   GET_ALL_USERS = "myocean/admin/GET_ALL_USERS",
   GET_CURRENT_USER = "myocean/admin/GET_CURRENT_USER",
+  GET_CURRENT_USER_NAME = "myocean/admin/GET_CURRENT_USER_NAME",
   SET_CREATE_USER = "myocean/admin/SET_CREATE_USER",
-  SET_SPLICE_LOADING = "myocean/admin/SET_SPLICE_LOADING"
+  SET_SPLICE_LOADING = "myocean/admin/SET_SPLICE_LOADING",
+  DELETE_USER = "myocean/admin/DELETE_USER",
+  SET_CREATE_USER_SUCCESS = "myocean/admin/SET_CREATE_USER_SUCCESS",
+  GET_ALL_USERS_SUCCESS = "myocean/admin/GET_ALL_USERS_SUCCESS",
+  GET_CURRENT_USER_SUCCESS = "myocean/admin/GET_CURRENT_USER_SUCCESS",
+  SET_ERROR = "myocean/admin/SET_ERROR",
+  CLEAR_ERROR = "myocean/admin/CLEAR_ERROR"
 }
 
 export enum authTypes {
-  SET_AUTH = "myocean/auth/SET_AUTH"
+  SET_AUTH = "myocean/auth/SET_AUTH",
+  USER_LOGOUT = "myocean/auth/USER_LOGOUT",
+  CHECK_AUTH = "myocean/auth/CHECK_AUTH",
+  SET_AUTH_SUCCESS = "myocean/auth/SET_AUTH_SUCCESS"
 }
 
 export enum profileTypes {
@@ -23,3 +33,12 @@ export enum profileTypes {
   GET_CURRENT_LESSONS_SUCCESS = "myocean/profile/GET_CURRENT_LESSONS_SUCCESS"
 }
 
+export enum coursesTypes {
+  GET_COURSES = "myocean/profile/GET_COURSES",
+  GET_COURSES_SUCCESS = "myocean/profile/GET_COURSES_SUCCESS",
+  GET_FINISHED_COURSES = "myocean/profile/GET_FINISHED_COURSE",
+  GET_FINISHED_COURSES_SUCCESS = "myocean/profile/GET_FINISHED_COURSES_SUCCESS",
+  SET_PRESENT_COURSES = "myocean/profile/SET_PRESENT_COURSES",
+  GET_CURRENT_COURSE = "myocean/profile/GET_CURRENT_COURSE",
+  GET_CURRENT_COURSE_SUCCESS = "myocean/profile/GET_CURRENT_COURSE_SUCCESS",
+}

@@ -15,7 +15,11 @@ const usersRequests = {
     return res.data
   },
   getCurrentUser: async (userID: string) => {
-    let res = await getConfigAxios.get(`/users/currentUser?id=${userID}`)
+    let res = await getConfigAxios.get(`/users/getUserID?id=${userID}`)
+    return res.data
+  },
+  getUserName: async (fullName: any) => {
+    let res = await getConfigAxios.get(`/users/getUserName?firstname=${fullName.firstname}&lastname=${fullName.lastname}`)
     return res.data
   },
   dropUser: async (usersID: Array<string>) => {

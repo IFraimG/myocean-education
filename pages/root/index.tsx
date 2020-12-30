@@ -5,14 +5,16 @@ import { courseType, profileType } from "../../store/reducers/profile"
 // @ts-ignore
 import HeadComponent from "../../components/withHead"
 import { AppType } from "../../store/redux-store";
-import { getTasksAction } from "../../store/actions/profile";
+import { getTasksAction, getCurrentLessonsAction } from "../../store/actions/profile";
 import wrapperStore from "../../store/redux-store"
 
 type rootPropsType = {
   coursesList: Array<courseType>,
-  profile: profileType
+  profileData: profileType,
+  getCurrentLessonsAction: (courseID: string) => void,
+  getTasksAction: () => void
 } 
-const ContainerRoot: React.FC<rootPropsType> = ({coursesList, profile}) => {
+const ContainerRoot: React.FC<rootPropsType> = ({coursesList, profileData, getCurrentLessonsAction}) => {
   return (
     <>
       <HeadComponent
@@ -22,7 +24,7 @@ const ContainerRoot: React.FC<rootPropsType> = ({coursesList, profile}) => {
         ]} 
         linkData={[{}]} 
       />
-      <Root profile={profile} coursesList={coursesList} />
+      <Root profileData={profileData} coursesList={coursesList} getCurrentLessonsAction={getCurrentLessonsAction} />
     </>
   );
 }
@@ -33,14 +35,14 @@ export const getStaticProps = wrapperStore.getStaticProps(async ({store}) => {
 
 type mapStateToPropsType = {
   coursesList: Array<courseType>,
-  profile: profileType
+  profileData: profileType
 }
 
 const mapStateToProps = (state: AppType): mapStateToPropsType => {
   return {
     coursesList: state.profile.coursesList,
-    profile: state.profile.profile
+    profileData: state.profile.profileData
   }
 }
 
-export default connect(mapStateToProps)(ContainerRoot)
+export default connect(mapStateToProps, {getCurrentLessonsAction, getTasksAction})(ContainerRoot)

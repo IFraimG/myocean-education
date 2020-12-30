@@ -3,23 +3,27 @@ import AdminRoot from "../../components/admin/root";
 // @ts-ignore
 import HeadComponent from "../../components/withHead"
 import { AppType } from "../../store/redux-store";
-import { userCreateThunk, userFirstDataValues, getAllUsersThunk, dropUsersThunk, getCurrentUserThunk } from "../../store/reducers/admin"
-import { setSpliceLoadingAction } from "../../store/actions/admin";
+import { userFirstDataValues } from "../../store/reducers/admin"
+import { 
+  getAllUsersAction, setSpliceLoadingAction, setCreateUserAction, deleteUserAction, getCurrentUserAction, getUserDataName 
+} from "../../store/actions/admin";
 
 interface AdminPropsType {
   usersList: Array<any>,
   isLoading: boolean,
   userData: any,
-  userCreateThunk: (usersData: userFirstDataValues) => void,
-  getAllUsersThunk: () => void,
+  errors: Array<string>,
+  setCreateUserAction: (usersData: userFirstDataValues) => void,
+  getAllUsersAction: () => void,
   setLoader: () => void,
-  dropUsersThunk: (usersID: Array<string>) => void,
-  sendUserData: (id: string) => void
+  deleteUserAction: (usersID: Array<string>) => void,
+  sendUserData: (id: string) => void,
+  sendUserDataName: (firstname: string, lastname: string) => void
 }
 
 const AdminContainer: React.FC<AdminPropsType> = ({
-  usersList, userCreateThunk, getAllUsersThunk, dropUsersThunk, 
-  setLoader, isLoading, sendUserData, userData
+  usersList, setCreateUserAction, getAllUsersAction, deleteUserAction, 
+  setLoader, isLoading, sendUserData, userData, sendUserDataName, errors
 }) => {
   return (
     <>
@@ -27,29 +31,36 @@ const AdminContainer: React.FC<AdminPropsType> = ({
       <AdminRoot 
         usersList={usersList} 
         isLoading={isLoading}
-        userCreate={userCreateThunk} 
-        getAllUsersThunk={getAllUsersThunk} 
-        dropUsersThunk={dropUsersThunk}
+        userCreate={setCreateUserAction} 
+        getAllUsers={getAllUsersAction} 
+        deleteUser={deleteUserAction}
         setLoader={setLoader} 
         sendUserData={sendUserData}
+        sendUserDataName={sendUserDataName}
         userData={userData}
+        errors={errors}
       />
     </>
   )
 };
 
-
 type mapStateToPropsType = {
   usersList: Array<any>,
   isLoading: boolean,
-  userData: any
+  userData: any,
+  errors: Array<string>
 }
 const mapStateToProps: any = (state: AppType): mapStateToPropsType => {
   return {
     usersList: state.admin.spliceUsers,
     isLoading: state.admin.isSpliceUsersLoading,
-    userData: state.admin.userFullData
+    userData: state.admin.userFullData,
+    errors: state.admin.errors
   }
 }
 
-export default connect(mapStateToProps, { userCreateThunk, getAllUsersThunk, dropUsersThunk, setLoader: setSpliceLoadingAction, sendUserData: getCurrentUserThunk })(AdminContainer);
+export default connect(mapStateToProps, { 
+  setCreateUserAction, getAllUsersAction, 
+  deleteUserAction, setLoader: setSpliceLoadingAction, 
+  sendUserData: getCurrentUserAction, sendUserDataName: getUserDataName
+})(AdminContainer);

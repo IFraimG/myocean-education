@@ -3,8 +3,6 @@ import { getTasksActionSuccess, getTasksActionType, getCurrentLessonsActionType 
 import { put } from "redux-saga/effects";
 
 export function* getTasksWorker(action: getTasksActionType) {
-  yield console.log("actionnn", action);
-  
   yield put(getTasksActionSuccess([
       {
         title: "Вводный курс по JavaScript",
@@ -34,11 +32,9 @@ export function* getTasksWorker(action: getTasksActionType) {
         timeEnd: "осталось 3 часа",
       },
     ]));
-  // СДЕЛАТЬ ЗАПРОС
 }
 
 export function* CurrentLessonsWorker(action: getCurrentLessonsActionType) {
-  yield console.log(action);
   
   const exampleData: Array<courseType> = [
     {
@@ -74,5 +70,6 @@ export function* CurrentLessonsWorker(action: getCurrentLessonsActionType) {
   exampleData.find((item: courseType) => {
     if (item.courseID == action.payload) currentLessons.push(item);
   });
+  
   yield put(getTasksActionSuccess(currentLessons));
 };

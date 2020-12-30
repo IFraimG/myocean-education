@@ -16,20 +16,22 @@ interface PropsTypes {
   usersList: Array<sliceUser>,
   userCreate: (a: formValues) => void,
   isLoading: boolean,
-  getAllUsersThunk: () => void,
+  errors: Array<string>,
+  getAllUsers: () => void,
   setLoader: () => void,
-  dropUsersThunk: (usersID: Array<string>) => void,
+  deleteUser: (usersID: Array<string>) => void,
+  sendUserDataName: (firstname: string, lastname: string) => void,
   sendUserData: (id: string) => void,
   userData: any
 };
 const AdminRoot: React.FC<PropsTypes> = ({
-  usersList, userCreate, getAllUsersThunk, dropUsersThunk, 
-  setLoader, isLoading, sendUserData, userData
+  usersList, userCreate, getAllUsers, deleteUser, errors,
+  setLoader, isLoading, sendUserData, userData, sendUserDataName
 }) => {
   const editOpen = (key: any) => {
     if (key.includes("2")) {
       setLoader()
-      getAllUsersThunk()
+      getAllUsers()
     }
   }
 
@@ -40,10 +42,10 @@ const AdminRoot: React.FC<PropsTypes> = ({
             <CreateUser userCreate={userCreate} />
         </Panel>
         <Panel key="2" header="Просмотр всех пользователей" >
-          <ListUsers usersList={usersList} isLoading={isLoading} dropUsersThunk={dropUsersThunk} />
+          <ListUsers usersList={usersList} isLoading={isLoading} dropUsersThunk={deleteUser} />
         </Panel>
         <Panel key="3" header="Найти пользователя">
-          <FindUser sendUserData={sendUserData} userData={userData} />
+          <FindUser errors={errors} sendUserData={sendUserData} sendUserDataName={sendUserDataName} userData={userData} />
         </Panel>
       </Collapse>
     </>
