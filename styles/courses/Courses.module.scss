@@ -1,11 +1,38 @@
 .courses {
   &__wrapper {}
-  &__title {}
-  &__tabs {}
+  &__tabs {
+    margin-top: 20px;
+    @media (max-width: 531px) {
+      display: flex;
+      justify-content: center;
+    }
+    &__title {
+      @media (max-width: 531px) {
+        display: none;
+      }
+    }
+    &__logo {
+      @media (max-width: 531px) {
+        width: 18px;
+        font-size: 32px;
+      }
+    }
+  }
   &__list {}
-  &__card {}
-  &__inner {}
-  &__top {}
+  &__card {
+  }
+  &__inner {
+    @media (max-width: 701px) {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &__top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
+  }
   &__left {
     max-width: 200px;
     max-height: 200px;
@@ -13,7 +40,92 @@
   &__logo {
     max-width: 100%;
   }
-  &__middle {}
-  &__right {}
+  &__middle {
+    @media (max-width: 701px) {
+      margin-top: 30px;
+    }
+  }
+  &__right {
+    @media (max-width: 701px) {
+      margin-top: 50px;
+    }
+    @media (max-width: 531px) {
+      margin-top: 20px;
+    }
+  }
   &__bottom {}
+  &__tag {
+    @media (max-width: 531px) {
+      display: none;
+    }
+  }
+  &__teacher {
+    &__logo {
+      min-width: 64px;
+      min-height: 64px;
+      max-width: 64px;
+      max-height: 64px;
+      border-radius: 64px;
+    }
+    &__info {
+      display: flex;
+      align-items: center;
+      max-width: 200px;
+      p {
+        margin-left: 20px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+    &__border {
+      @media (max-width: 531px) {
+        display: none;
+      }
+    }
+  }
+  &__table {
+    margin-bottom: 20px;
+    min-width: 150px;
+    @media (min-width: 521px) {
+      min-width: 300px;
+    }
+  }
+  &__null {
+    margin-top: 50px;
+  }
+  &__lessons {
+    margin-top: 30px;
+    @media (max-width: 521px) {
+      display: none;
+    }
+    &__last {
+      display: flex;
+      flex-wrap: wrap;
+      cursor: pointer;
+      padding: 5px 20px;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+    &__first {
+      display: flex;
+      flex-wrap: wrap;
+      cursor: pointer;
+      padding: 5px 20px;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+    &__date {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    &__time {
+      max-width: 100px;
+      &__info {
+        display: flex;
+      }
+    }
+  }
 }

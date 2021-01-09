@@ -11,6 +11,7 @@ const session = require("express-session")
 
 const {sequilizeAuth} = require("../db")
 const usersRouter = require("../routes/users")
+const coursesRouter = require("../routes/courses")
 
 app.prepare().then(() => {
   const server = express();
@@ -23,6 +24,7 @@ app.prepare().then(() => {
   
   server.get("*", (req, res) => handle(req, res))
   server.use("/users", usersRouter)
+  server.use("/courses", coursesRouter)
 
   server.listen(process.env.PORT, (err) => {
     if (err) throw err;

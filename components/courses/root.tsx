@@ -1,36 +1,55 @@
-import { Card, Tag } from "antd"
+import { useRouter } from "next/router"
+import { DashboardOutlined, FlagOutlined } from "@ant-design/icons"
+import { Tabs, Empty, PageHeader } from "antd"
+import { useEffect } from "react"
 import { coursesTypes } from "../../pages/courses"
 import styles from "../../styles/courses/Courses.module.scss"
+import CourseItem from "./CourseItem"
 
 const CoursesList: React.FC<coursesTypes> = ({
-  // coursesList, finishedCourses, courseData, isPresentCourses, 
-  // getCoursesAction, getFinishedCourses, setPresentCourses
+  coursesList, finishedCourses, courseData, isPresentCourses, 
+  getCoursesAction, getFinishedCourses, setPresentCourses
 }) => {
+  const router = useRouter()
+  useEffect(() => {
+    if (isPresentCourses) getCoursesAction()
+    else getFinishedCourses()
+  }, [isPresentCourses])
   return (
     <div className={styles.courses__wrapper}>
-      <div className={styles.courses__title}></div>
-      <div className={styles.courses__tabs}></div>
-      <div className={styles.courses__list}>
-        <Card title="Программирование C++" extra={
-          <Tag color="green">Основной курс</Tag>
-        } className={styles.courses__card}>
-          <div className={styles.courses__inner}>
-            <div className={styles.courses__top}>
-              <div className={styles.courses__left}>
-                <img className={styles.courses__logo} src="/pupil/cpp.png" alt="logo" />
-              </div>
-              <div className={styles.courses__middle}>
-
-              </div>
-              <div className={styles.courses__right}>
-
-              </div>
-            </div>
-            <div className={styles.courses__bottom}>
-            </div>
+      <PageHeader
+        className="site-page-header"
+        onBack={() => router.push("/root")}
+        title="Мои курсы"
+        ghost={false}
+      />
+      <Tabs className={styles.courses__tabs} defaultActiveKey="1" onChange={setPresentCourses}>
+        <Tabs.TabPane tab={
+          <span>
+            <DashboardOutlined className={styles.courses__tabs__logo} />
+            <span className={styles.courses__tabs__title}>Начатые курсы</span>
+          </span>
+        }
+          key="1">
+        { coursesList.length > 0 ?
+          <div className={styles.courses__list}>
+            <CourseItem courseData={courseData} />
           </div>
-        </Card>
-      </div>
+        : <Empty className={styles.courses__null} description="В данный момент вы не проходите никаких курсов" /> }
+        </Tabs.TabPane>
+        <Tabs.TabPane tab={
+          <span>
+            <FlagOutlined className={styles.courses__tabs__logo} />
+            <span className={styles.courses__tabs__title}>Законченные курсы</span>
+          </span>
+        } key="2">
+          { coursesList.length > 0 ?
+            <div className={styles.courses__list}>
+              <CourseItem courseData={courseData} />
+            </div>
+          : <Empty className={styles.courses__null} description="Вы еще не прошли никакие курсы" /> }
+        </Tabs.TabPane>
+      </Tabs>
     </div>
   )
 }

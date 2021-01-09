@@ -7,6 +7,7 @@ import { userFirstDataValues } from "../../store/reducers/admin"
 import { 
   getAllUsersAction, setSpliceLoadingAction, setCreateUserAction, deleteUserAction, getCurrentUserAction, getUserDataName 
 } from "../../store/actions/admin";
+import { createCourse } from "../../store/actions/courses";
 
 interface AdminPropsType {
   usersList: Array<any>,
@@ -18,13 +19,15 @@ interface AdminPropsType {
   setLoader: () => void,
   deleteUserAction: (usersID: Array<string>) => void,
   sendUserData: (id: string) => void,
+  createCourse: (courseData: any) => void,
   sendUserDataName: (firstname: string, lastname: string) => void
 }
 
 const AdminContainer: React.FC<AdminPropsType> = ({
   usersList, setCreateUserAction, getAllUsersAction, deleteUserAction, 
-  setLoader, isLoading, sendUserData, userData, sendUserDataName, errors
+  setLoader, isLoading, sendUserData, userData, sendUserDataName, errors, createCourse
 }) => {
+  
   return (
     <>
       <HeadComponent title="Админ панель" />
@@ -38,6 +41,7 @@ const AdminContainer: React.FC<AdminPropsType> = ({
         sendUserData={sendUserData}
         sendUserDataName={sendUserDataName}
         userData={userData}
+        createCourse={createCourse}
         errors={errors}
       />
     </>
@@ -61,6 +65,6 @@ const mapStateToProps: any = (state: AppType): mapStateToPropsType => {
 
 export default connect(mapStateToProps, { 
   setCreateUserAction, getAllUsersAction, 
-  deleteUserAction, setLoader: setSpliceLoadingAction, 
-  sendUserData: getCurrentUserAction, sendUserDataName: getUserDataName
+  deleteUserAction, setLoader: setSpliceLoadingAction, createCourse,
+  sendUserData: getCurrentUserAction, sendUserDataName: getUserDataName, 
 })(AdminContainer);

@@ -21,7 +21,16 @@ const authRequests = {
     } catch (error) {
       if (error.message == "Request failed with status code 401") return false
     }
-  }
+  },
+  getUserId: async () => {
+    try {
+      let res = await axios.get("/pupil/api/auth/checkauth")
+      return res.data
+    } catch (error) {
+      console.log(error);
+      
+    }
+  },
 }
 
 export default authRequests;

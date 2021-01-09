@@ -1,7 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper';
 import { coursesTypes } from '../types';
 
-
 export interface courseStateType {
   coursesList: Array<any>,
   finishedCourses: Array<any>,

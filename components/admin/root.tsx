@@ -1,5 +1,6 @@
 import { Collapse } from "antd";
 import { sliceUser } from "../../store/reducers/admin";
+import CreateCourse from "./CreateCourse";
 import CreateUser from "./CreateUser";
 import FindUser from "./FindUser";
 import ListUsers from "./ListUsers";
@@ -22,10 +23,11 @@ interface PropsTypes {
   deleteUser: (usersID: Array<string>) => void,
   sendUserDataName: (firstname: string, lastname: string) => void,
   sendUserData: (id: string) => void,
+  createCourse: (courseData: any) => void,
   userData: any
 };
 const AdminRoot: React.FC<PropsTypes> = ({
-  usersList, userCreate, getAllUsers, deleteUser, errors,
+  usersList, userCreate, getAllUsers, deleteUser, errors, createCourse,
   setLoader, isLoading, sendUserData, userData, sendUserDataName
 }) => {
   const editOpen = (key: any) => {
@@ -46,6 +48,9 @@ const AdminRoot: React.FC<PropsTypes> = ({
         </Panel>
         <Panel key="3" header="Найти пользователя">
           <FindUser errors={errors} sendUserData={sendUserData} sendUserDataName={sendUserDataName} userData={userData} />
+        </Panel>
+        <Panel key="4" header="Создать курс">
+          <CreateCourse createCourse={createCourse} />
         </Panel>
       </Collapse>
     </>

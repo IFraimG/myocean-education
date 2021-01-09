@@ -1,23 +1,25 @@
 import { call, put } from 'redux-saga/effects';
+import authRequests from '../api/auth';
 import coursesRequests from '../api/courses';
 import { 
-  getCoursesType, getCoursesSuccess, getCourseSuccess, getCurrentCourseType,
-  getFinishedCoursesType, getFinishedCoursesSuccess
+  getCoursesSuccess, getCourseSuccess, getCurrentCourseType, getFinishedCoursesSuccess
 } from './../actions/courses';
 
 
-export function* getCoursesWorker(action: getCoursesType) {
+export function* getCoursesWorker() {
   try {
-    let res = yield call(coursesRequests.getCourses, action.payload)
+    let dataUser = yield call(authRequests.getUserId)
+    let res = yield call(coursesRequests.getCourses, dataUser.id)
     yield put(getCoursesSuccess(res))
   } catch (error) {
     console.log(error);
   }
 }
 
-export function* getFinishedCoursesWorker(action: getFinishedCoursesType) {
+export function* getFinishedCoursesWorker() {
   try {
-    let res = yield call(coursesRequests.getCurrentCourse, action.payload)
+    let dataUser = yield call(authRequests.getUserId)
+    let res = yield call(coursesRequests.getCurrentCourse, dataUser.id)
     yield put(getFinishedCoursesSuccess(res))
   } catch (error) {
     console.log(error);

@@ -1,9 +1,11 @@
+import { createCourseSuccess } from './../actions/courses';
 import { 
   setCreateUserActionType, deleteUserType, getCurrentUserType, getUserNameType,
   createUserSuccess, getAllUsersSuccess, setSpliceLoadingAction, setUserDataSuccess, setErrorAction, clearErrorAction
 } from '../actions/admin';
 import { put, call } from "redux-saga/effects"
 import usersRequests from '../api/users';
+import coursesRequests from '../api/courses';
 
 export function* getAllUsers() {
   let data = yield call(usersRequests.getAllUsers)
@@ -45,4 +47,11 @@ export function* getUserNameWorker(action: getUserNameType) {
 
 export function* deleteUser(action: deleteUserType) {
   yield call(usersRequests.dropUser, action.payload)
+}
+
+export function* createCourseWorker(action: any) {
+  console.log(action);
+  
+  let res = yield call(coursesRequests.createCourse, action.payload)
+  yield put(createCourseSuccess(res.data))
 }

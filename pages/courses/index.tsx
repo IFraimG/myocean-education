@@ -1,22 +1,30 @@
 import { connect } from "react-redux";
+// @ts-ignore
+import WithHead from "../../components/withHead"
 import { AppType } from "../../store/redux-store";
 import { getCoursesAction, getFinishedCourses, setPresentCoursesAction } from "../../store/actions/courses"
 import RootCourses from "../../components/courses/root"
+import { useEffect } from "react";
 
 export interface coursesTypes {
   coursesList: Array<any>,
   finishedCourses: Array<any>,
   courseData: any,
   isPresentCourses: boolean,
-  getCoursesAction: (userID: string) => void,
-  getFinishedCourses: (userID: string) => void,
-  setPresentCourses: (isPresentCourse: boolean) => void
+  getCoursesAction: () => void,
+  getFinishedCourses: () => void,
+  setPresentCourses: (isPresentCourse: boolean | string) => void
 }
 const CoursesPage: React.FC<coursesTypes> = ({
   coursesList, finishedCourses, courseData, isPresentCourses, 
   getCoursesAction, getFinishedCourses, setPresentCourses
 }) => {
+  useEffect(() => {
+    getCoursesAction()
+  }, [])
   return (
+    <>
+    <WithHead title="MyOceanEducation - курсы" />
     <RootCourses 
       coursesList={coursesList} 
       finishedCourses={finishedCourses} 
@@ -26,6 +34,7 @@ const CoursesPage: React.FC<coursesTypes> = ({
       getFinishedCourses={getFinishedCourses}
       setPresentCourses={setPresentCourses}
     />
+    </>
   )
 }
 

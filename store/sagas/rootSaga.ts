@@ -3,7 +3,7 @@ import { takeEvery, all } from "redux-saga/effects"
 import { AppWorkerHeader, AppWorkerModal } from './appSaga';
 import { loginWorker, checkAuthWorker, logout } from './authSaga';
 import { CurrentLessonsWorker, getTasksWorker } from './profileSaga';
-import { getAllUsers, createUser, getCurrentUserWorker, getUserNameWorker, deleteUser } from './adminSaga';
+import { getAllUsers, createUser, getCurrentUserWorker, getUserNameWorker, deleteUser, createCourseWorker } from './adminSaga';
 import { getCoursesWorker, getFinishedCoursesWorker, getCurrentCourse } from "./coursesSaga"
 
 function* ProfileWatcher() {
@@ -35,7 +35,7 @@ function* CoursesWatcher() {
   yield takeEvery(coursesTypes.GET_COURSES, getCoursesWorker)
   yield takeEvery(coursesTypes.GET_FINISHED_COURSES, getFinishedCoursesWorker)
   yield takeEvery(coursesTypes.GET_CURRENT_COURSE, getCurrentCourse)
-  
+  yield takeEvery(coursesTypes.CREATE_COURSE, createCourseWorker)
 }
 
 function* mainWatcher() {
