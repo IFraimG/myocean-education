@@ -1,6 +1,6 @@
 import { createCourseSuccess } from './../actions/courses';
 import { 
-  setCreateUserActionType, deleteUserType, getCurrentUserType, getUserNameType,
+  setCreateUserActionType, deleteUserType, getCurrentUserType, getUserNameType, addUserCourseType,
   createUserSuccess, getAllUsersSuccess, setSpliceLoadingAction, setUserDataSuccess, setErrorAction, clearErrorAction
 } from '../actions/admin';
 import { put, call } from "redux-saga/effects"
@@ -25,7 +25,6 @@ export function* createUser(action: setCreateUserActionType) {
 export function* getCurrentUserWorker(action: getCurrentUserType) {
   try {
     let data = yield call(usersRequests.getCurrentUser, action.payload)
-    console.log(data);
     yield put(clearErrorAction())
     yield put(setUserDataSuccess(data))
   } catch (error) {
@@ -54,4 +53,14 @@ export function* createCourseWorker(action: any) {
   
   let res = yield call(coursesRequests.createCourse, action.payload)
   yield put(createCourseSuccess(res.data))
+}
+
+export function* addUserCourse(action: addUserCourseType) {
+  try {
+    console.log(action);
+    
+    yield put(clearErrorAction())
+  } catch (error) {
+    yield put(setErrorAction("Такого пользователя не существует"))
+  }
 }

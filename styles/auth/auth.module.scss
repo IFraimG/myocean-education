@@ -18,6 +18,21 @@
     height: 100vh;
     padding-top: 50px;
   }
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    height: 20px;
+    &__auth {
+      color: #000 !important;
+    }
+    &__reg {
+      color: #0050b3 !important;
+      cursor: pointer;
+      &:hover {
+        color: #1890ff !important;
+      }
+    }
+  }
   &__left {
     max-width: 600px;
   }
@@ -47,7 +62,37 @@
       width: 130px;
     }
   }
+  &__footer {
+    display: flex;
+    justify-content: center;
+    &__button {
+      width: 300px;
+      @media (max-width: 391px) {
+        width: 150px;
+        margin-top: 20px;
+      }
+    }
+  }
   &__password {
     max-width: 400px;
+  }
+  &__error {
+    margin-top: 20px;
+    color: #000 !important;
+    padding: 10px 0;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: 1px solid rgb(204, 36, 36);
+  }
+  &__name {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    &_input {
+      width: 260px;
+      &_el {
+        width: 100%;
+      }
+    }
   }
 }

@@ -1,29 +1,26 @@
 import axios from "axios";
 
-const getConfigAxios = axios.create({
-  baseURL: "http://localhost:3000/pupil/api",
-  withCredentials: true,
-})
+export const serverAxiosConfig = axios.create({ baseURL: "http://localhost:5000/api" })
 
 const usersRequests = {
   createUser: async (usersData: any) => {
-    let res = await axios.post("http://localhost:3000/users", usersData)
+    let res = await serverAxiosConfig.post("/auth/create", usersData)
     return res
   },
   getAllUsers: async () => {
-    let res = await getConfigAxios.get("/users/all")
+    let res = await serverAxiosConfig.get("/users/all")
     return res.data
   },
   getCurrentUser: async (userID: string) => {
-    let res = await getConfigAxios.get(`/users/getUserID?id=${userID}`)
+    let res = await serverAxiosConfig.get(`/users/id?userID=${userID}`)
     return res.data
   },
   getUserName: async (fullName: any) => {
-    let res = await getConfigAxios.get(`/users/getUserName?firstname=${fullName.firstname}&lastname=${fullName.lastname}`)
+    let res = await serverAxiosConfig.get(`/users/name?firstname=${fullName.firstname}&lastname=${fullName.lastname}`)
     return res.data
   },
   dropUser: async (usersID: Array<string>) => {
-    let res = await axios.delete("http://localhost:3000/users/", {data: {usersID: usersID}})
+    let res = await serverAxiosConfig.delete("/users/delete", {params: {usersID}})
     return res
   }
 }

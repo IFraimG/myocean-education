@@ -16,7 +16,7 @@ import courseReducer, {courseStateType} from "./reducers/courses"
 // @ts-ignore
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
-let reducers = combineReducers({
+export const reducers = combineReducers({
   app: appReducer, profile: profileReducer, admin: adminReducer, 
   auth: authReducer, courses: courseReducer
 })

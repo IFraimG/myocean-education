@@ -4,7 +4,7 @@ module.exports = {
     return [
       {
         source: "/pupil",
-        destination: "/pupil/root",
+        destination: "/root",
         permanent: true,
       },
     ];

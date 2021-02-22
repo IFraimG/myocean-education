@@ -1,5 +1,6 @@
 import { Collapse } from "antd";
 import { sliceUser } from "../../store/reducers/admin";
+import AddUserCourse from "./AddUserCourse";
 import CreateCourse from "./CreateCourse";
 import CreateUser from "./CreateUser";
 import FindUser from "./FindUser";
@@ -24,11 +25,12 @@ interface PropsTypes {
   sendUserDataName: (firstname: string, lastname: string) => void,
   sendUserData: (id: string) => void,
   createCourse: (courseData: any) => void,
+  addUser: (userID: string, courseID: string) => void,
   userData: any
 };
 const AdminRoot: React.FC<PropsTypes> = ({
   usersList, userCreate, getAllUsers, deleteUser, errors, createCourse,
-  setLoader, isLoading, sendUserData, userData, sendUserDataName
+  setLoader, isLoading, sendUserData, userData, sendUserDataName, addUser
 }) => {
   const editOpen = (key: any) => {
     if (key.includes("2")) {
@@ -51,6 +53,9 @@ const AdminRoot: React.FC<PropsTypes> = ({
         </Panel>
         <Panel key="4" header="Создать курс">
           <CreateCourse createCourse={createCourse} />
+        </Panel>
+        <Panel key="5" header="Добавить пользователя в курс">
+          <AddUserCourse addUser={addUser} errors={errors} />
         </Panel>
       </Collapse>
     </>

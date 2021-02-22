@@ -1,27 +1,21 @@
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // @ts-ignore
 import WithHead from "../../components/withHead"
-import { AppType } from "../../store/redux-store";
-import { getCoursesAction, getFinishedCourses, setPresentCoursesAction } from "../../store/actions/courses"
+import wrapperStore, { AppType } from "../../store/redux-store";
 import RootCourses from "../../components/courses/root"
-import { useEffect } from "react";
+import { GetServerSideProps } from "next";
+import { coursesTypes } from "../../store/types";
+import { getCoursesType, getFinishedCoursesType, setPresentCoursesType } from "../../store/actions/courses";
+import { checkAuthAction } from "../../store/actions/auth";
 
-export interface coursesTypes {
-  coursesList: Array<any>,
-  finishedCourses: Array<any>,
-  courseData: any,
-  isPresentCourses: boolean,
-  getCoursesAction: () => void,
-  getFinishedCourses: () => void,
-  setPresentCourses: (isPresentCourse: boolean | string) => void
-}
-const CoursesPage: React.FC<coursesTypes> = ({
-  coursesList, finishedCourses, courseData, isPresentCourses, 
-  getCoursesAction, getFinishedCourses, setPresentCourses
-}) => {
-  useEffect(() => {
-    getCoursesAction()
-  }, [])
+const CoursesPage = (props) => {
+  const { coursesList, finishedCourses, courseData, isPresentCourses } = useSelector((state: AppType) => state.courses)
+  const dispatch = useDispatch()
+  console.log(props);
+  
+  const getCoursesAction = (userID: string): getCoursesType => dispatch({ type: coursesTypes.GET_COURSES, payload: userID })
+  const getFinishedCourses = (userID: string): getFinishedCoursesType => dispatch({ type: coursesTypes.GET_FINISHED_COURSES, payload: userID })
+  const setPresentCourses = (): setPresentCoursesType => dispatch({ type: coursesTypes.SET_PRESENT_COURSES })
   return (
     <>
     <WithHead title="MyOceanEducation - курсы" />
@@ -38,21 +32,11 @@ const CoursesPage: React.FC<coursesTypes> = ({
   )
 }
 
-interface mapStateToPropsType {
-  coursesList: Array<any>,
-  finishedCourses: Array<any>,
-  courseData: any,
-  isPresentCourses: boolean
-}
-const mapStateToProps = (state: AppType): mapStateToPropsType => {
-  return {
-    coursesList: state.courses.coursesList,
-    finishedCourses: state.courses.finishedCourses,
-    courseData: state.courses.courseData,
-    isPresentCourses: state.courses.isPresentCourses
-  }
+export async function getServerSideProps() {
+  let res = await fetch("http://localhost:3000/pupil/api/checkauth", {method: "GET"})
+  let data = await res.json()
+  if (!data.isAuth) return {redirect: { destination: "/pupil/auth", permament: false }}
+  return {props: { foo: data }}
 }
 
-export default connect(mapStateToProps, {
-  getCoursesAction, getFinishedCourses, setPresentCourses: setPresentCoursesAction
-})(CoursesPage);
+export default CoursesPage

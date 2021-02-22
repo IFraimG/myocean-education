@@ -16,14 +16,18 @@ export enum adminTypes {
   GET_ALL_USERS_SUCCESS = "myocean/admin/GET_ALL_USERS_SUCCESS",
   GET_CURRENT_USER_SUCCESS = "myocean/admin/GET_CURRENT_USER_SUCCESS",
   SET_ERROR = "myocean/admin/SET_ERROR",
-  CLEAR_ERROR = "myocean/admin/CLEAR_ERROR"
+  CLEAR_ERROR = "myocean/admin/CLEAR_ERROR",
+  ADD_USER_COURSE = "myocean/admin/ADD_USER_COURSE"
 }
 
 export enum authTypes {
   SET_AUTH = "myocean/auth/SET_AUTH",
   USER_LOGOUT = "myocean/auth/USER_LOGOUT",
   CHECK_AUTH = "myocean/auth/CHECK_AUTH",
-  SET_AUTH_SUCCESS = "myocean/auth/SET_AUTH_SUCCESS"
+  SET_AUTH_SUCCESS = "myocean/auth/SET_AUTH_SUCCESS",
+  SET_ERROR = "myocean/auth/SET_ERROR",
+  REGISTATION_USER = "myocean/auth/REGISTATION_USER",
+  REGISTATION_USER_SUCCESS = "myocean/auth/REGISTATION_USER_SUCCESS"
 }
 
 export enum profileTypes {

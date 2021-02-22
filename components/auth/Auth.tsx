@@ -1,30 +1,25 @@
-import { Card, Form, Input, Button, Checkbox } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
 //@ts-ignore
 import styles from "../../styles/auth/auth.module.scss"
 import { useEffect, useState } from "react";
 import { userLogin } from "../../store/reducers/auth";
-import { useRouter } from "next/router"
+import Registation from "./Registration";
+import Login from "./Login";
+import { useRouter } from "next/router";
 
 interface PropsType {
-  loginUserThunk: (usersData: userLogin) => void
-  isAuth: boolean
+  loginUser: (usersData: userLogin) => void,
+  registrationUser: (usersData: any) => void,
+  isAuth: boolean,
+  error: string | null
 }
-const Auth: React.FC<PropsType> = ({loginUserThunk, isAuth}) => {
-  const [isPassword, setVisiblePassword] = useState(false)
+const Auth: React.FC<PropsType> = ({loginUser, isAuth, registrationUser, error}) => {
+  const [isLogin, setLogin] = useState(true)
   const router = useRouter()
 
   useEffect(() => {
-    if (isAuth) router.push("/root")
+    if (isAuth) router.push("/root") 
   }, [isAuth])
-  
-  const onFinish = (values: userLogin) => {
-    loginUserThunk(values)
-  }
 
-  useEffect(() => {
-    if (isAuth) router.push("/root")
-  }, [])
   return (
     <div className={styles.form__wrapper}>
       <div className={styles.form}>
@@ -38,54 +33,10 @@ const Auth: React.FC<PropsType> = ({loginUserThunk, isAuth}) => {
             fugit ad deleniti dolore incidunt ullam?
           </p>
         </div>
-        <Card className={styles.form__right} title="Авторизация">
-          <Form
-            name="login"
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-          >
-            <Form.Item
-              name="email"
-              rules={[{ required: true, message: "Вы не ввели ваш email" }]}
-            >
-              <Input
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Email..."
-              />
-            </Form.Item>
-            <div className={styles.form__middle}>
-              <Form.Item
-                name="password"
-                rules={[{ required: true, message: "Вы не ввели пароль!" }]}
-              >
-                {
-                  isPassword ? <Input 
-                  className={styles.form__password}
-                  prefix={<LockOutlined className="site-form-item-icon" />}
-                  type="text"
-                  placeholder="Password..."
-                  />
-                  : <Input 
-                  className={styles.form__password}
-                  prefix={<LockOutlined className="site-form-item-icon" />}
-                  type="password"
-                  placeholder="Password..."
-                  autoComplete="on"
-                  />
-                }
-              </Form.Item>
-              <a onClick={() => setVisiblePassword(!isPassword)}>Показать пароль...</a>
-            </div>
-            <div className={styles.form__down}>
-              <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Запомнить меня</Checkbox>
-              </Form.Item>
-              <Form.Item>
-                <Button className={styles.form__down__button} type="primary" htmlType="submit">Войти</Button>
-              </Form.Item>
-            </div>
-          </Form>
-        </Card>
+        { isLogin ? 
+          <Login setLogin={setLogin} error={error} loginUser={loginUser} /> 
+          : <Registation setLogin={setLogin} registrationUser={registrationUser} error={error} /> 
+        }
       </div>
     </div>
   );

@@ -1,20 +1,18 @@
-import axios from "axios";
-
-const getConfigAxios = axios.create({baseURL: "http://localhost:3000/pupil/api", method: "GET"})
+import { serverAxiosConfig } from './users';
 
 const coursesRequests = {
   getCourses: async (userID: string) => {
-    let res = await getConfigAxios.get(`/courses/courses?id=${userID}`)
+    let res = await serverAxiosConfig.get(`/courses/courses?id=${userID}`)
     console.log(res);
     return res.data
   },
   getFinishedCourses: async (userID: string) => {
-    let res = await getConfigAxios.get(`/courses/finishedCourses?id=${userID}`)
+    let res = await serverAxiosConfig.get(`/courses/finish?id=${userID}`)
     console.log(res);
     return res.data
   },
   getCurrentCourse: async (courseID: string) => {
-    let res = await getConfigAxios.get(`/courses/course?id=${courseID}`)
+    let res = await serverAxiosConfig.get(`/courses/current?id=${courseID}`)
     console.log(res);
     return res.data
   },
@@ -25,7 +23,7 @@ const coursesRequests = {
     formData.set("description", courseData.description)
     formData.set("admin", courseData.admin)
     
-    let res = await getConfigAxios.post("http://localhost:3000/courses/", formData, { headers: {"Content-Type": "multipart/form-data"}})
+    let res = await serverAxiosConfig.post("/courses/create", formData, { headers: {"Content-Type": "multipart/form-data"}})
     return res.data
   }
 };

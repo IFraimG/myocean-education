@@ -18,9 +18,9 @@ const ListUsers: React.FC<PropsTypes> = ({usersList, dropUsersThunk, isLoading})
     { title: "Email", dataIndex: "email", key: "email" },
     { title: "ID", dataIndex: "id", key: "id" },
   ];
-
+  
   const onSelectChange = (keys: Array<number>) => setSelection(keys);
-
+  
   const rowSelectionEdit = { rowSelection, onChange: onSelectChange };
   const deleteElements = () => {
     let newArray: Array<any> = [];

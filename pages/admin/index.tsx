@@ -1,70 +1,41 @@
-import { connect } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import AdminRoot from "../../components/admin/root";
 // @ts-ignore
 import HeadComponent from "../../components/withHead"
-import { AppType } from "../../store/redux-store";
 import { userFirstDataValues } from "../../store/reducers/admin"
-import { 
-  getAllUsersAction, setSpliceLoadingAction, setCreateUserAction, deleteUserAction, getCurrentUserAction, getUserDataName 
-} from "../../store/actions/admin";
-import { createCourse } from "../../store/actions/courses";
+import { adminTypes, coursesTypes } from "../../store/types";
 
-interface AdminPropsType {
-  usersList: Array<any>,
-  isLoading: boolean,
-  userData: any,
-  errors: Array<string>,
-  setCreateUserAction: (usersData: userFirstDataValues) => void,
-  getAllUsersAction: () => void,
-  setLoader: () => void,
-  deleteUserAction: (usersID: Array<string>) => void,
-  sendUserData: (id: string) => void,
-  createCourse: (courseData: any) => void,
-  sendUserDataName: (firstname: string, lastname: string) => void
-}
-
-const AdminContainer: React.FC<AdminPropsType> = ({
-  usersList, setCreateUserAction, getAllUsersAction, deleteUserAction, 
-  setLoader, isLoading, sendUserData, userData, sendUserDataName, errors, createCourse
-}) => {
+const AdminContainer = () => {
+  const dispatch = useDispatch()
+  const { spliceUsers, userFullData, fullUsers, errors, isLoading } = useSelector((state: any) => state.admin)
   
+  const setCreateUserAction = (usersData: userFirstDataValues) => dispatch({type: adminTypes.SET_CREATE_USER, payload: usersData})
+  const getAllUsersAction = () => dispatch({type: adminTypes.GET_ALL_USERS})
+  const deleteUserAction = (usersID: Array<string>) => dispatch({type: adminTypes.DELETE_USER, payload: usersID})
+  const setLoader = () => dispatch({type: adminTypes.SET_SPLICE_LOADING})
+  const addUserCourse = (userID: string, courseID: string) => dispatch({type: adminTypes.ADD_USER_COURSE, payload: {userID, courseID}})
+  const sendUserData = (id: string) => dispatch({type: adminTypes.GET_CURRENT_USER, payload: id})
+  const sendUserDataName = (firstname: string, lastname: string) => dispatch({type: adminTypes.GET_CURRENT_USER_NAME, payload: {firstname, lastname}})
+  const createCourse = (courseData: any) => dispatch({type: coursesTypes.CREATE_COURSE, payload: courseData})
   return (
     <>
       <HeadComponent title="Админ панель" />
       <AdminRoot 
-        usersList={usersList} 
+        usersList={spliceUsers} 
         isLoading={isLoading}
+        errors={errors}
+        userData={userFullData}
         userCreate={setCreateUserAction} 
         getAllUsers={getAllUsersAction} 
         deleteUser={deleteUserAction}
         setLoader={setLoader} 
         sendUserData={sendUserData}
         sendUserDataName={sendUserDataName}
-        userData={userData}
         createCourse={createCourse}
-        errors={errors}
+        addUser={addUserCourse}
       />
     </>
   )
 };
 
-type mapStateToPropsType = {
-  usersList: Array<any>,
-  isLoading: boolean,
-  userData: any,
-  errors: Array<string>
-}
-const mapStateToProps: any = (state: AppType): mapStateToPropsType => {
-  return {
-    usersList: state.admin.spliceUsers,
-    isLoading: state.admin.isSpliceUsersLoading,
-    userData: state.admin.userFullData,
-    errors: state.admin.errors
-  }
-}
-
-export default connect(mapStateToProps, { 
-  setCreateUserAction, getAllUsersAction, 
-  deleteUserAction, setLoader: setSpliceLoadingAction, createCourse,
-  sendUserData: getCurrentUserAction, sendUserDataName: getUserDataName, 
-})(AdminContainer);
+export default AdminContainer

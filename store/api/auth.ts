@@ -1,20 +1,18 @@
-import { userLogin } from './../reducers/auth';
+import { serverAxiosConfig } from './users';
+import { userLogin, userRegistation } from './../reducers/auth';
 import axios from "axios";
-
-const getConfigAxios = axios.create({
-  baseURL: "http://localhost:3000",
-  method: "GET",
-  withCredentials: true,
-})
+import Cookies from "js-cookie"
 
 const authRequests = {
-  login: async (usersData: userLogin) => {
-    let res = await axios.get(`/pupil/api/auth/login/?email=${usersData.email}&password=${usersData.password}&remember=${usersData.remember}`)
+  login: async (user: userLogin) => {
+    let res = await serverAxiosConfig.post("/auth/login", {username: user.email, password: user.password})
     return res
   },
   checkAuth: async () => {
     try {
-      let res = await axios.get("/pupil/api/auth/checkauth")
+      let token = Cookies.get("jwt")
+      let res = await serverAxiosConfig.get("/auth/check", {headers: {"Authorization": token}})
+      console.log(res);
       
       if (res.status == 200) return true
       else return false
@@ -28,9 +26,16 @@ const authRequests = {
       return res.data
     } catch (error) {
       console.log(error);
-      
     }
   },
+  registration: async (userData: userRegistation) => {
+    try {
+      let res = await serverAxiosConfig.post("/auth/create", userData)
+      return res
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default authRequests;

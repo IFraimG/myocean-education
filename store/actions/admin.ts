@@ -7,12 +7,14 @@ export type setCreateUserActionType = {type: typeof adminTypes.SET_CREATE_USER, 
 export type getCurrentUserType = {type: typeof adminTypes.GET_CURRENT_USER, payload: string}
 export type getUserNameType = {type: typeof adminTypes.GET_CURRENT_USER_NAME, payload: any}
 export type deleteUserType = {type: typeof adminTypes.DELETE_USER, payload: Array<string>}
+export type addUserCourseType = {type: typeof adminTypes.ADD_USER_COURSE, payload: any}
 
 export const getAllUsersAction = (): getAllUsersType => ({ type: adminTypes.GET_ALL_USERS })
 export const setCreateUserAction = (usersData: userFirstDataValues): setCreateUserActionType => ({type: adminTypes.SET_CREATE_USER, payload: usersData})
 export const getCurrentUserAction = (userID: string): getCurrentUserType => ({ type: adminTypes.GET_CURRENT_USER, payload: userID })
 export const getUserDataName = (firstname: string, lastname: string): getUserNameType => ({ type: adminTypes.GET_CURRENT_USER_NAME, payload: {firstname: firstname, lastname: lastname} })
 export const deleteUserAction = (usersID: Array<string>): deleteUserType => ({type: adminTypes.DELETE_USER, payload: usersID})
+export const addUserCourse = (userID: string, courseID: string): addUserCourseType => ({type: adminTypes.ADD_USER_COURSE, payload: {userID, courseID}})
 
 // success
 export type createUserSuccessType = {type: typeof adminTypes.SET_CREATE_USER_SUCCESS}
@@ -21,7 +23,6 @@ export type setUserDataSuccessType = {type: typeof adminTypes.GET_CURRENT_USER_S
 export type setSpliceLoadingAT = {type: typeof adminTypes.SET_SPLICE_LOADING}
 export type setErrorType = {type: typeof adminTypes.SET_ERROR, payload: string}
 export type clearErrorType = {type: typeof adminTypes.CLEAR_ERROR}
-
 
 export const createUserSuccess = (): createUserSuccessType => ({type: adminTypes.SET_CREATE_USER_SUCCESS})
 export const getAllUsersSuccess = (usersData: Array<any> | null, spliceData: Array<any> | null | undefined): getAllUsersSuccessType => ({ type: adminTypes.GET_ALL_USERS_SUCCESS, payload: {usersData, spliceData}})

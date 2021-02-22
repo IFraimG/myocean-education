@@ -1,9 +1,12 @@
 import { appTypes, profileTypes, authTypes, adminTypes, coursesTypes } from './../types';
 import { takeEvery, all } from "redux-saga/effects"
 import { AppWorkerHeader, AppWorkerModal } from './appSaga';
-import { loginWorker, checkAuthWorker, logout } from './authSaga';
+import { loginWorker, checkAuthWorker, logout, registration } from './authSaga';
 import { CurrentLessonsWorker, getTasksWorker } from './profileSaga';
-import { getAllUsers, createUser, getCurrentUserWorker, getUserNameWorker, deleteUser, createCourseWorker } from './adminSaga';
+import { 
+  getAllUsers, createUser, getCurrentUserWorker, getUserNameWorker, 
+  deleteUser, createCourseWorker, addUserCourse 
+} from './adminSaga';
 import { getCoursesWorker, getFinishedCoursesWorker, getCurrentCourse } from "./coursesSaga"
 
 function* ProfileWatcher() {
@@ -21,6 +24,7 @@ function* AuthWatcher() {
   yield takeEvery(authTypes.SET_AUTH, loginWorker)
   yield takeEvery(authTypes.USER_LOGOUT, logout)
   yield takeEvery(authTypes.CHECK_AUTH, checkAuthWorker)
+  yield takeEvery(authTypes.REGISTATION_USER, registration)
 }
 
 function* AdminWatcher() {
@@ -29,6 +33,7 @@ function* AdminWatcher() {
   yield takeEvery(adminTypes.GET_CURRENT_USER, getCurrentUserWorker)
   yield takeEvery(adminTypes.GET_CURRENT_USER_NAME, getUserNameWorker)
   yield takeEvery(adminTypes.DELETE_USER, deleteUser)
+  yield takeEvery(adminTypes.ADD_USER_COURSE, addUserCourse)
 }
 
 function* CoursesWatcher() {
