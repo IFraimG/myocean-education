@@ -6,23 +6,18 @@ const handle = app.getRequestHandler()
 const express = require("express");
 const bodyParser = require('body-parser')
 const cookieParser = require("cookie-parser")
-const session = require("express-session")
-
-const {sequilizeAuth} = require("../db");
 
 app.prepare().then(() => {
   const server = express();
-  sequilizeAuth()
-
+  
   server.use(bodyParser.urlencoded({extended: false}))
   server.use(bodyParser.json())
   server.use(cookieParser())
-  server.use(session({secret: process.env.SECRET_KEY, resave: true, saveUninitialized: true}))
   server.get("*", (req, res) => handle(req, res))
 
-  server.listen(process.env.PORT, (err) => {
+  server.listen(3000, (err) => {
     if (err) throw err;
-    console.log("Проект запущен на порту http://localhost:" + process.env.PORT);
+    console.log("Проект запущен на порту http://localhost:3000");
   });
 })
 .catch(ex => {

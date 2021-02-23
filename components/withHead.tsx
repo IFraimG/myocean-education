@@ -1,18 +1,21 @@
 import Head from "next/head";
-import { useRouter } from "next/router"
 
-const WithHead = ({title, metaData = null, linkData = null}) => {
-  const router = useRouter()
+interface HeadType {
+  title: string,
+  metaData?: any | null,
+  linkData?: any | null
+}
+const WithHead: React.FC<HeadType> = ({title, metaData = null, linkData = null}) => {
   return (
     <>
       <Head>
         <title>{title}</title>
 
-        { metaData != null ? metaData.map((metaObject, index) => {
+        { metaData != null ? metaData.map((metaObject: any, index: number) => {
           return <meta key={index} name={metaObject.metaName} content={metaObject.contentData} />
         }) : ""}
         
-        { linkData != null ? linkData.map((linkObject, index) => {
+        { linkData != null ? linkData.map((linkObject: any, index: number) => {
           return <link key={index} rel={linkObject.rel} href={linkObject.href} />
         }) : ""}
       </Head>

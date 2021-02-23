@@ -17,11 +17,11 @@ import 'antd/dist/antd.css';
 import styles from "../styles/layout.module.scss";
 
 function DefaultLayout({ children }) {
-  const [collapsed, setCollapse] = useState(false)
-  const [isMedia, setMedia] = useState(true)
+  const [collapsed, setCollapse] = useState<any>(false)
+  const [isMedia, setMedia] = useState<boolean>(true)
   const router = useRouter()
 
-  const editCollapse = (collapsed) => {
+  const editCollapse = (collapsed: any) => {
     if (isMedia) setCollapse(collapsed)
   }
 
@@ -45,7 +45,7 @@ function DefaultLayout({ children }) {
       }
     }
   }, [typeof document, typeof window])
-  const pageRedirect = (path) => router.push(path)
+  const pageRedirect = (path: string) => router.push(path)
 
   return (
     <div>

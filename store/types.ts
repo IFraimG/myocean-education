@@ -17,7 +17,10 @@ export enum adminTypes {
   GET_CURRENT_USER_SUCCESS = "myocean/admin/GET_CURRENT_USER_SUCCESS",
   SET_ERROR = "myocean/admin/SET_ERROR",
   CLEAR_ERROR = "myocean/admin/CLEAR_ERROR",
-  ADD_USER_COURSE = "myocean/admin/ADD_USER_COURSE"
+  ADD_USER_COURSE = "myocean/admin/ADD_USER_COURSE",
+  GET_ALL_COURSES = "myocean/admin/GET_ALL_COURSES",
+  GET_ALL_COURSES_SUCCESS = "myocean/admin/GET_ALL_COURSES_SUCCESS",
+  DELETE_COURSES = "myocean/admin/DELETE_COURSES"
 }
 
 export enum authTypes {

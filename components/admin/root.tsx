@@ -4,7 +4,7 @@ import AddUserCourse from "./AddUserCourse";
 import CreateCourse from "./CreateCourse";
 import CreateUser from "./CreateUser";
 import FindUser from "./FindUser";
-import ListUsers from "./ListUsers";
+import ListItems, { rowTypes } from "./ListItems";
 const { Panel } = Collapse;
 
 interface formValues {
@@ -26,27 +26,50 @@ interface PropsTypes {
   sendUserData: (id: string) => void,
   createCourse: (courseData: any) => void,
   addUser: (userID: string, courseID: string) => void,
-  userData: any
+  userData: any,
+  allCourses: Array<any>,
+  getAllCourses: () => void,
+  deleteCourses: (coursesData: any) => void
 };
 const AdminRoot: React.FC<PropsTypes> = ({
-  usersList, userCreate, getAllUsers, deleteUser, errors, createCourse,
-  setLoader, isLoading, sendUserData, userData, sendUserDataName, addUser
+  usersList, userData, isLoading, errors, allCourses, 
+  createCourse, getAllCourses, setLoader, sendUserData, 
+  sendUserDataName, addUser, deleteCourses, userCreate, 
+  getAllUsers, deleteUser
 }) => {
   const editOpen = (key: any) => {
-    if (key.includes("2")) {
+    if (key == "2") {
       setLoader()
       getAllUsers()
     }
+    if (key == "6") {
+      setLoader()
+      getAllCourses()
+    }
   }
+
+  const columnsUsers: Array<rowTypes> = [
+    { title: "Имя", dataIndex: "firstName", key: "firstName" },
+    { title: "Фамилия", dataIndex: "lastName", key: "lastName" },
+    { title: "Email", dataIndex: "email", key: "email" },
+    { title: "ID", dataIndex: "id", key: "id" },
+  ];
+
+  const columnsCourses: Array<rowTypes> = [
+    { title: "Логотип", dataIndex: "logo", key: "logo" },
+    { title: "Название", dataIndex: "title", key: "title" },
+    { title: "Создатель", dataIndex: "admin", key: "admin" },
+    { title: "ID", dataIndex: "id", key: "id" },
+  ];
 
   return (
     <>
-      <Collapse defaultActiveKey={["1"]} onChange={editOpen}>
+      <Collapse accordion defaultActiveKey={["1"]} onChange={editOpen}>
         <Panel key="1" header="Добавить пользователя">
             <CreateUser userCreate={userCreate} />
         </Panel>
         <Panel key="2" header="Просмотр всех пользователей" >
-          <ListUsers usersList={usersList} isLoading={isLoading} dropUsersThunk={deleteUser} />
+          <ListItems importantData={columnsUsers} listItems={usersList} isLoading={isLoading} dropItems={deleteUser} />
         </Panel>
         <Panel key="3" header="Найти пользователя">
           <FindUser errors={errors} sendUserData={sendUserData} sendUserDataName={sendUserDataName} userData={userData} />
@@ -54,8 +77,11 @@ const AdminRoot: React.FC<PropsTypes> = ({
         <Panel key="4" header="Создать курс">
           <CreateCourse createCourse={createCourse} />
         </Panel>
-        <Panel key="5" header="Добавить пользователя в курс">
+        <Panel key="5" header="Присоединить пользователя к курсу">
           <AddUserCourse addUser={addUser} errors={errors} />
+        </Panel>
+        <Panel key="6" header="Просмотр всех курсов">
+          <ListItems importantData={columnsCourses} listItems={allCourses} isLoading={isLoading} dropItems={deleteCourses} />
         </Panel>
       </Collapse>
     </>

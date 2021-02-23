@@ -1,4 +1,5 @@
 import { HYDRATE } from "next-redux-wrapper"
+import { rowTypes } from "../../components/admin/ListItems"
 import { adminTypes } from "../types"
 
 export interface sliceUser {
@@ -21,7 +22,8 @@ export interface stateAdminType {
   isCreateUser: boolean,
   isSpliceUsersLoading: boolean,
   userFullData: any,
-  errors: Array<string>
+  errors: Array<string>,
+  allCourses: Array<any>
 }
 const stateDefault: stateAdminType = {
   fullUsers: [],
@@ -29,7 +31,8 @@ const stateDefault: stateAdminType = {
   isCreateUser: false,
   isSpliceUsersLoading: false,
   userFullData: null,
-  errors: []
+  errors: [],
+  allCourses: []
 }
 
 const AdminReducer = (state = stateDefault, action: any): stateAdminType => {
@@ -41,6 +44,7 @@ const AdminReducer = (state = stateDefault, action: any): stateAdminType => {
     case adminTypes.SET_CREATE_USER_SUCCESS: return {...state, isCreateUser: !state.isCreateUser}
     case adminTypes.SET_SPLICE_LOADING: return {...state, isSpliceUsersLoading: !state.isSpliceUsersLoading}
     case adminTypes.GET_CURRENT_USER_SUCCESS: return { ...state, userFullData: action.payload }
+    case adminTypes.GET_ALL_COURSES_SUCCESS: return { ...state, allCourses: action.payload }
     case adminTypes.SET_ERROR: return { ...state, errors: [...action.payload], userFullData: null }
     default: return {...state}
   }

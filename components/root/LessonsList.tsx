@@ -3,7 +3,7 @@ import { Card, List, Col, Button } from "antd";
 import Link from "next/link";
 import styles from "../../styles/pupil/root.module.scss";
 
-function LessonsList(props) {
+const LessonsList = () => {
   let exampleData = [
     {
       fullDate: "23 ноября (ПН)",

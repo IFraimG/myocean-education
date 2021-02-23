@@ -1,5 +1,5 @@
 import { courseType } from "./../reducers/profile";
-import { getTasksActionSuccess, getTasksActionType, getCurrentLessonsActionType } from "./../actions/profile";
+import { getTasksActionSuccess, getTasksActionType, getCurrentLessonsType } from "./../actions/profile";
 import { put } from "redux-saga/effects";
 
 export function* getTasksWorker(action: getTasksActionType) {
@@ -34,7 +34,7 @@ export function* getTasksWorker(action: getTasksActionType) {
     ]));
 }
 
-export function* CurrentLessonsWorker(action: getCurrentLessonsActionType) {
+export function* CurrentLessonsWorker(action: getCurrentLessonsType) {
   
   const exampleData: Array<courseType> = [
     {

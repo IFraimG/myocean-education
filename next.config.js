@@ -3,7 +3,7 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: "/pupil",
+        source: "/",
         destination: "/root",
         permanent: true,
       },

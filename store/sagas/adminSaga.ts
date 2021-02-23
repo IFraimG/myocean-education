@@ -1,3 +1,4 @@
+import { getAllCoursesType, getAllCoursesSuccess, deleteCoursesType } from './../actions/admin';
 import { createCourseSuccess } from './../actions/courses';
 import { 
   setCreateUserActionType, deleteUserType, getCurrentUserType, getUserNameType, addUserCourseType,
@@ -57,10 +58,28 @@ export function* createCourseWorker(action: any) {
 
 export function* addUserCourse(action: addUserCourseType) {
   try {
-    console.log(action);
+    let res = yield call(coursesRequests.addUserToCourse, {userID: action.payload.userID, courseID: action.payload.courseID})
+    console.log(res.data);
     
     yield put(clearErrorAction())
   } catch (error) {
     yield put(setErrorAction("Такого пользователя не существует"))
+  }
+}
+
+export function* getAllCourses(action: getAllCoursesType) {
+  try {
+    let data = yield call(coursesRequests.getAllCourses)
+    yield put(getAllCoursesSuccess(data))
+  } catch (error) {
+    yield put(setErrorAction(error.message))
+  }
+}
+
+export function* deleteCourses(action: deleteCoursesType) {
+  try {
+    yield call(coursesRequests.deleteCourses, action.payload)
+  } catch (error) {
+    yield put(setErrorAction(error.message))
   }
 }

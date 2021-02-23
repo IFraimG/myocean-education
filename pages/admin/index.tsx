@@ -2,21 +2,29 @@ import { useDispatch, useSelector } from "react-redux"
 import AdminRoot from "../../components/admin/root";
 // @ts-ignore
 import HeadComponent from "../../components/withHead"
+import { 
+  addUserCourse, addUserCourseType, deleteCoursesAction, deleteCoursesType, deleteUserAction, deleteUserType, getAllCoursesAction, getAllCoursesType, getAllUsersAction, getCurrentUserAction, 
+  getCurrentUserType, 
+  getUserDataName, getUserNameType, setCreateUserAction, setCreateUserActionType, setSpliceLoadingAction, setSpliceLoadingAT 
+} from "../../store/actions/admin";
+import { createCourse, createCourseType } from "../../store/actions/courses";
 import { userFirstDataValues } from "../../store/reducers/admin"
-import { adminTypes, coursesTypes } from "../../store/types";
 
 const AdminContainer = () => {
   const dispatch = useDispatch()
-  const { spliceUsers, userFullData, fullUsers, errors, isLoading } = useSelector((state: any) => state.admin)
+  const { spliceUsers, userFullData, fullUsers, allCourses, errors, isLoading } = useSelector((state: any) => state.admin)
   
-  const setCreateUserAction = (usersData: userFirstDataValues) => dispatch({type: adminTypes.SET_CREATE_USER, payload: usersData})
-  const getAllUsersAction = () => dispatch({type: adminTypes.GET_ALL_USERS})
-  const deleteUserAction = (usersID: Array<string>) => dispatch({type: adminTypes.DELETE_USER, payload: usersID})
-  const setLoader = () => dispatch({type: adminTypes.SET_SPLICE_LOADING})
-  const addUserCourse = (userID: string, courseID: string) => dispatch({type: adminTypes.ADD_USER_COURSE, payload: {userID, courseID}})
-  const sendUserData = (id: string) => dispatch({type: adminTypes.GET_CURRENT_USER, payload: id})
-  const sendUserDataName = (firstname: string, lastname: string) => dispatch({type: adminTypes.GET_CURRENT_USER_NAME, payload: {firstname, lastname}})
-  const createCourse = (courseData: any) => dispatch({type: coursesTypes.CREATE_COURSE, payload: courseData})
+  const setCreateUser = (usersData: userFirstDataValues): setCreateUserActionType => dispatch(setCreateUserAction(usersData))
+  const getAllUsers = () => dispatch(getAllUsersAction())
+  const deleteUser = (usersID: Array<string>): deleteUserType => dispatch(deleteUserAction(usersID))
+  const setLoader = (): setSpliceLoadingAT => dispatch(setSpliceLoadingAction())
+  const addUserCourseAction = (userID: string, courseID: string): addUserCourseType => dispatch(addUserCourse(userID, courseID))
+  const sendUserData = (id: string): getCurrentUserType => dispatch(getCurrentUserAction(id))
+  const sendUserDataName = (firstname: string, lastname: string): getUserNameType => dispatch(getUserDataName(firstname, lastname))
+  const createCourseAction = (courseData: any): createCourseType => dispatch(createCourse(courseData))
+  const getAllCourses = (): getAllCoursesType => dispatch(getAllCoursesAction())
+  const deleteCourses = (coursesData: any): deleteCoursesType => dispatch(deleteCoursesAction(coursesData))
+
   return (
     <>
       <HeadComponent title="Админ панель" />
@@ -25,14 +33,17 @@ const AdminContainer = () => {
         isLoading={isLoading}
         errors={errors}
         userData={userFullData}
-        userCreate={setCreateUserAction} 
-        getAllUsers={getAllUsersAction} 
-        deleteUser={deleteUserAction}
+        allCourses={allCourses}
+        userCreate={setCreateUser} 
+        getAllUsers={getAllUsers} 
+        deleteUser={deleteUser}
         setLoader={setLoader} 
         sendUserData={sendUserData}
         sendUserDataName={sendUserDataName}
-        createCourse={createCourse}
-        addUser={addUserCourse}
+        createCourse={createCourseAction}
+        addUser={addUserCourseAction}
+        getAllCourses={getAllCourses}
+        deleteCourses={deleteCourses}
       />
     </>
   )

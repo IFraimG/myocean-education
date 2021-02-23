@@ -3,7 +3,10 @@ import { serverAxiosConfig } from './users';
 const coursesRequests = {
   getCourses: async (userID: string) => {
     let res = await serverAxiosConfig.get(`/courses/courses?id=${userID}`)
-    console.log(res);
+    return res.data
+  },
+  getAllCourses: async () => {
+    let res = await serverAxiosConfig.get("/courses/all")
     return res.data
   },
   getFinishedCourses: async (userID: string) => {
@@ -25,6 +28,18 @@ const coursesRequests = {
     
     let res = await serverAxiosConfig.post("/courses/create", formData, { headers: {"Content-Type": "multipart/form-data"}})
     return res.data
+  },
+  deleteCourses: async (coursesData: any) => {
+    let res = await serverAxiosConfig.delete("/courses/delete", {data: {coursesData}})
+    return res
+  },
+  addUserToCourse: async ({userID, courseID}: any) =>{
+    try {
+      let res = await serverAxiosConfig.put("/courses/addTo", {data: {userID, courseID}})
+      return res
+    } catch (error) {
+      return error.message
+    }
   }
 };
 

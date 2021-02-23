@@ -5,8 +5,8 @@ import { profileTypes } from "../types"
 export type getTasksActionType = { type: typeof profileTypes.GET_TASKS}
 export const getTasksAction = (): getTasksActionType => ({type: profileTypes.GET_TASKS})
 
-export type getCurrentLessonsActionType = { type: typeof profileTypes.GET_CURRENT_LESSONS, payload: string}
-export const getCurrentLessonsAction = (id: string): getCurrentLessonsActionType => ({type: profileTypes.GET_CURRENT_LESSONS, payload: id})
+export type getCurrentLessonsType = { type: typeof profileTypes.GET_CURRENT_LESSONS, payload: string}
+export const getCurrentLessonsAction = (id: string): getCurrentLessonsType => ({type: profileTypes.GET_CURRENT_LESSONS, payload: id})
 
 
 // success 

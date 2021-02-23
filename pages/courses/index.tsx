@@ -1,18 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 // @ts-ignore
 import WithHead from "../../components/withHead"
-import wrapperStore, { AppType } from "../../store/redux-store";
+import { AppType } from "../../store/redux-store";
 import RootCourses from "../../components/courses/root"
-import { GetServerSideProps } from "next";
 import { coursesTypes } from "../../store/types";
 import { getCoursesType, getFinishedCoursesType, setPresentCoursesType } from "../../store/actions/courses";
-import { checkAuthAction } from "../../store/actions/auth";
 
-const CoursesPage = (props) => {
+const CoursesPage = () => {
   const { coursesList, finishedCourses, courseData, isPresentCourses } = useSelector((state: AppType) => state.courses)
   const dispatch = useDispatch()
-  console.log(props);
-  
+
   const getCoursesAction = (userID: string): getCoursesType => dispatch({ type: coursesTypes.GET_COURSES, payload: userID })
   const getFinishedCourses = (userID: string): getFinishedCoursesType => dispatch({ type: coursesTypes.GET_FINISHED_COURSES, payload: userID })
   const setPresentCourses = (): setPresentCoursesType => dispatch({ type: coursesTypes.SET_PRESENT_COURSES })
@@ -32,10 +29,10 @@ const CoursesPage = (props) => {
   )
 }
 
-export async function getServerSideProps() {
-  let res = await fetch("http://localhost:3000/pupil/api/checkauth", {method: "GET"})
+export async function getServerSideProps(ctx: any) {
+  let res = await fetch("http://localhost:5000/api/auth/check", {method: "GET", headers: {"Authorization": "Bearer " + ctx.req.cookies.jwt}})
   let data = await res.json()
-  if (!data.isAuth) return {redirect: { destination: "/pupil/auth", permament: false }}
+  if (data?.id == null) return {redirect: { destination: "/pupil/auth", permament: false }}
   return {props: { foo: data }}
 }
 

@@ -9,7 +9,6 @@ import { compose } from "redux";
 import DefaultLayout from "../components/layout"
 import wrapperStore from "../store/redux-store"
 import type { AppProps } from 'next/app';
-import { authTypes } from '../store/types';
 
 const App = (props: any) => {
   console.log(props);

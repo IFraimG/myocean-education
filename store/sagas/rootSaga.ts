@@ -5,7 +5,7 @@ import { loginWorker, checkAuthWorker, logout, registration } from './authSaga';
 import { CurrentLessonsWorker, getTasksWorker } from './profileSaga';
 import { 
   getAllUsers, createUser, getCurrentUserWorker, getUserNameWorker, 
-  deleteUser, createCourseWorker, addUserCourse 
+  deleteUser, createCourseWorker, addUserCourse, getAllCourses, deleteCourses 
 } from './adminSaga';
 import { getCoursesWorker, getFinishedCoursesWorker, getCurrentCourse } from "./coursesSaga"
 
@@ -17,7 +17,6 @@ function* ProfileWatcher() {
 function* AppWatcher() {
   yield takeEvery(appTypes.EDIT_HEADER, AppWorkerHeader)
   yield takeEvery(appTypes.SET_MODALGO, AppWorkerModal)
-    
 }
 
 function* AuthWatcher() {
@@ -34,6 +33,8 @@ function* AdminWatcher() {
   yield takeEvery(adminTypes.GET_CURRENT_USER_NAME, getUserNameWorker)
   yield takeEvery(adminTypes.DELETE_USER, deleteUser)
   yield takeEvery(adminTypes.ADD_USER_COURSE, addUserCourse)
+  yield takeEvery(adminTypes.GET_ALL_COURSES, getAllCourses)
+  yield takeEvery(adminTypes.DELETE_COURSES, deleteCourses)
 }
 
 function* CoursesWatcher() {

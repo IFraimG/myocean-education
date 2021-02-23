@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import Logout from "../auth/Logout"
 import Link from "next/link";
-import "antd/dist/antd.css";
 import styles from "../../styles/layout.module.scss";
 import { MenuOutlined } from "@ant-design/icons";
 
-function MyHeader(props) {
-  const [isMedia, setMedia] = useState(false);
+function MyHeader(props: any) {
+  const [isMedia, setMedia] = useState<boolean>(false);
 
   const checkWidth = () => {
     if (document.documentElement.clientWidth <= 652) setMedia(true);
