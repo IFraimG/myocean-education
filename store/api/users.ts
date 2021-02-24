@@ -13,6 +13,8 @@ const usersRequests = {
   },
   getCurrentUser: async (userID: string) => {
     let res = await serverAxiosConfig.get(`/users/id?userID=${userID}`)
+    console.log(res.data);
+    
     return res.data
   },
   getUserName: async (fullName: any) => {

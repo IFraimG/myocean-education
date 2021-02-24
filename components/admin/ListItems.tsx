@@ -7,7 +7,8 @@ import { sliceUser } from "../../store/reducers/admin";
 export type rowTypes = {
   title: string,
   dataIndex: string,
-  key: number | string
+  key: number | string,
+  render?: (el: string) => void
 }
 
 interface PropsTypes {

@@ -15,15 +15,22 @@ import {
 
 import 'antd/dist/antd.css';
 import styles from "../styles/layout.module.scss";
+import { useDispatch } from "react-redux";
+import { getCurrentUserAction } from "../store/actions/admin"
 
-function DefaultLayout({ children }) {
+function DefaultLayout({ children, userID }) {
   const [collapsed, setCollapse] = useState<any>(false)
   const [isMedia, setMedia] = useState<boolean>(true)
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const editCollapse = (collapsed: any) => {
     if (isMedia) setCollapse(collapsed)
   }
+
+  useEffect(() => {
+    dispatch(getCurrentUserAction(userID))
+  }, [])
 
   useEffect(() => {
     if (typeof document != null && typeof document != undefined && typeof window != null && typeof window != undefined) {
@@ -110,4 +117,4 @@ function DefaultLayout({ children }) {
   );
 }
 
-export default memo(DefaultLayout);
+export default DefaultLayout

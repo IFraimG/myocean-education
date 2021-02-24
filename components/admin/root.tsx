@@ -1,4 +1,5 @@
 import { Collapse } from "antd";
+import Link from "next/link";
 import { sliceUser } from "../../store/reducers/admin";
 import AddUserCourse from "./AddUserCourse";
 import CreateCourse from "./CreateCourse";
@@ -48,6 +49,14 @@ const AdminRoot: React.FC<PropsTypes> = ({
     }
   }
 
+  const imageStyles = {
+    width: "64px",
+    height: "64px",
+    objectFit: "cover",
+    borderRadius: "50%",
+    cursor: "pointer"
+  }
+
   const columnsUsers: Array<rowTypes> = [
     { title: "Имя", dataIndex: "firstName", key: "firstName" },
     { title: "Фамилия", dataIndex: "lastName", key: "lastName" },
@@ -56,10 +65,15 @@ const AdminRoot: React.FC<PropsTypes> = ({
   ];
 
   const columnsCourses: Array<rowTypes> = [
-    { title: "Логотип", dataIndex: "logo", key: "logo" },
+    { 
+      title: "Логотип", 
+      dataIndex: "logo", 
+      key: "logo", 
+      render: (logo: string) => logo == null ? <img style={imageStyles} src="/pupil/user.png" alt="logo" /> : <img style={imageStyles} src={logo} alt="logo" />
+    },
     { title: "Название", dataIndex: "title", key: "title" },
     { title: "Создатель", dataIndex: "admin", key: "admin" },
-    { title: "ID", dataIndex: "id", key: "id" },
+    { title: "ID", dataIndex: "id", key: "id", render: (id: string) => <Link href={"/courses/" + id}>{id}</Link> },
   ];
 
   return (

@@ -58,6 +58,7 @@ function TasksRoot(props: any) {
   const [courseCurrent, setCourse] = useState<string | null>(null)
 
   const getCurrentCourse = (courseID: string, title: string) => {
+    setNum(1)
     props.getCurrentLessonsAction(courseID)
     setCourse(title)
   }
@@ -86,7 +87,9 @@ function TasksRoot(props: any) {
               <div className={styles.root__tasklist}>
                 <SingleWork workData={props.coursesList[numPage - 1]} />
               </div>
-              <Pagination className={styles.root__paginator} onChange={setPageCourse} defaultPageSize={1} total={props.coursesList.length}  />
+              { props.coursesList.length > 1 ? (
+                <Pagination className={styles.root__paginator} onChange={setPageCourse} defaultPageSize={1} total={props.coursesList.length}  />
+              ): "" }
             </div>
             )
           : <p>У вас нет невыполненных задач, отдыхайте !</p>

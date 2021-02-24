@@ -11,19 +11,25 @@ import wrapperStore from "../store/redux-store"
 import type { AppProps } from 'next/app';
 
 const App = (props: any) => {
-  console.log(props);
-  
   const router = useRouter()
   const { Component, pageProps }: AppProps = props
+
   if (router.asPath == "/auth") {
     return <Component {...pageProps} />
   } else {
     return (
-      <DefaultLayout>
+      <DefaultLayout userID={pageProps?.foo.id}>
         <Component {...pageProps} router={router} />
       </DefaultLayout>
     )
   }
+}
+
+export async function getServerSideProps(ctx) {
+  let res = await fetch("http://localhost:5000/api/auth/check", {method: "GET", headers: {"Authorization": "Bearer " + ctx.req.cookies.jwt}})
+  let data = await res.json()
+  if (data?.id == null) return {redirect: { destination: "/pupil/root", permament: false }}
+  return {props: { foo: data }}
 }
 
 // class WrapperApp extends AppNext {

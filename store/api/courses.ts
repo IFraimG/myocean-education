@@ -2,7 +2,7 @@ import { serverAxiosConfig } from './users';
 
 const coursesRequests = {
   getCourses: async (userID: string) => {
-    let res = await serverAxiosConfig.get(`/courses/courses?id=${userID}`)
+    let res = await serverAxiosConfig.get(`/courses/user/${userID}`)
     return res.data
   },
   getAllCourses: async () => {
@@ -10,7 +10,7 @@ const coursesRequests = {
     return res.data
   },
   getFinishedCourses: async (userID: string) => {
-    let res = await serverAxiosConfig.get(`/courses/finish?id=${userID}`)
+    let res = await serverAxiosConfig.get(`/courses/user/finish/${userID}`)
     console.log(res);
     return res.data
   },

@@ -1,0 +1,18 @@
+.course {
+  
+  &__wrapper {}
+  &__breadcumbs {
+    display: flex;
+  }
+  &__card {
+    margin-top: 20px;
+  }
+  &__tasks {
+    display: flex;
+    gap: 0 10px;
+  }
+  &__date {
+    margin: 20px 0;
+    text-align: center;
+  }
+}
