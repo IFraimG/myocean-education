@@ -1,10 +1,6 @@
+import { stateAppType } from './../interfaces/app';
 import { HYDRATE } from 'next-redux-wrapper';
 import { appTypes } from "../types"
-
-export interface stateAppType {
-  isEditHeader: boolean,
-  isModalLogout: boolean
-}
 
 const defaultState: stateAppType = {
   isEditHeader: false,

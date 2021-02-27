@@ -3,7 +3,7 @@ import Auth from "../../components/auth/Auth";
 //@ts-ignore
 import HeadComponent from "../../components/withHead"
 import { registationUserType, setAuthActionType } from "../../store/actions/auth";
-import { userLogin, userRegistation } from "../../store/reducers/auth";
+import { userLogin, userRegistation } from "../../store/interfaces/auth";
 import { AppType } from "../../store/redux-store";
 import { authTypes } from "../../store/types";
 

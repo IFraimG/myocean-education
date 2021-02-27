@@ -108,6 +108,10 @@ function DefaultLayout({ children, userID }) {
                   <CloseSquareOutlined />
                   <span>Записаться в группу</span>
                 </Menu.Item>
+                <Menu.Item key="10" onClick={() => pageRedirect("/admin")}>
+                  <CloseSquareOutlined />
+                  <span>Админ панель</span>
+                </Menu.Item>
             </Menu>
           </Sider>
           <Content className={styles.layout__content}>{children}</Content>

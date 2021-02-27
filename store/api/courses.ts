@@ -1,3 +1,4 @@
+import { courseType } from '../interfaces/admin';
 import { serverAxiosConfig } from './users';
 
 const coursesRequests = {
@@ -15,16 +16,17 @@ const coursesRequests = {
     return res.data
   },
   getCurrentCourse: async (courseID: string) => {
-    let res = await serverAxiosConfig.get(`/courses/current?id=${courseID}`)
+    let res = await serverAxiosConfig.get(`/courses/current/${courseID}`)
     console.log(res);
     return res.data
   },
-  createCourse: async (courseData: any) => {
+  createCourse: async (courseData: courseType) => {
     let formData = new FormData()
-    if (courseData.logo != "") formData.set("logo", courseData.logo, courseData.logo.name)
+    if (courseData.logo != null) formData.append("logo", courseData.logo.originFileObj, courseData.logo.originFileObj.name)
     formData.set("title", courseData.title)
     formData.set("description", courseData.description)
     formData.set("admin", courseData.admin)
+    formData.set("isFinished", courseData.isFinished)
     
     let res = await serverAxiosConfig.post("/courses/create", formData, { headers: {"Content-Type": "multipart/form-data"}})
     return res.data

@@ -1,6 +1,6 @@
 import { Collapse } from "antd";
 import Link from "next/link";
-import { sliceUser } from "../../store/reducers/admin";
+import { sliceUser } from "../../store/interfaces/admin";
 import AddUserCourse from "./AddUserCourse";
 import CreateCourse from "./CreateCourse";
 import CreateUser from "./CreateUser";

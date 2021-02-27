@@ -1,4 +1,4 @@
-import { userFirstDataValues } from './../reducers/admin';
+import { userFirstDataValues } from '../interfaces/admin';
 import { adminTypes } from "../types"
 
 // middleware

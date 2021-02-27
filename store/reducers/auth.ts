@@ -1,23 +1,7 @@
 import { HYDRATE } from 'next-redux-wrapper';
 import { authTypes } from "../types"
+import { stateAuthType } from '../interfaces/auth';
 
-export type userLogin = {
-  email: string
-  password: string
-  remember: boolean
-}
-export interface userRegistation {
-  firstname: string
-  lastname: string
-  email: string
-  password: string
-}
-
-
-export interface stateAuthType {
-  isAuth: boolean
-  error: string | null
-};
 const stateDefault: stateAuthType = {
   isAuth: false,
   error: null

@@ -6,7 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Card, Form, Input } from "antd";
 import { useState } from "react";
-import { userRegistation } from "../../store/reducers/auth";
+import { userRegistation } from "../../store/interfaces/auth";
 import styles from "../../styles/auth/auth.module.scss";
 
 interface RegistationProps {

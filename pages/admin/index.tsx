@@ -8,7 +8,7 @@ import {
   getUserDataName, getUserNameType, setCreateUserAction, setCreateUserActionType, setSpliceLoadingAction, setSpliceLoadingAT 
 } from "../../store/actions/admin";
 import { createCourse, createCourseType } from "../../store/actions/courses";
-import { userFirstDataValues } from "../../store/reducers/admin"
+import { userFirstDataValues } from "../../store/interfaces/admin"
 
 const AdminContainer = () => {
   const dispatch = useDispatch()

@@ -1,30 +1,7 @@
+import { stateAdminType } from '../interfaces/admin';
 import { HYDRATE } from "next-redux-wrapper"
-import { rowTypes } from "../../components/admin/ListItems"
 import { adminTypes } from "../types"
 
-export interface sliceUser {
-  firstName: string,
-  lastName: string,
-  id: string,
-  email: string,
-  key: number
-}
-export interface userFirstDataValues {
-  firstname: string,
-  lastname: string, 
-  email: string,
-  password: string
-}
-
-export interface stateAdminType {
-  fullUsers: Array<any> | null,
-  spliceUsers: Array<any>
-  isCreateUser: boolean,
-  isSpliceUsersLoading: boolean,
-  userFullData: any,
-  errors: Array<string>,
-  allCourses: Array<any>
-}
 const stateDefault: stateAdminType = {
   fullUsers: [],
   spliceUsers: [],

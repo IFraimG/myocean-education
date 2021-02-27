@@ -18,7 +18,6 @@ const FindUser: React.FC<PropsTypes> = ({sendUserData, sendUserDataName, userDat
   const sendInputLastName = (event: any) => setName({firstname: fullName.firstname, lastname: event.target.value})
   
   useEffect(() => {
-    
     if (userData != null) {
       setName({})
       setValue("")

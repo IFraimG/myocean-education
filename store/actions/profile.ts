@@ -1,4 +1,4 @@
-import { courseType } from './../reducers/profile';
+import { courseType } from '../interfaces/profile';
 import { profileTypes } from "../types"
 
 // middleware

@@ -1,12 +1,7 @@
 import { HYDRATE } from 'next-redux-wrapper';
 import { coursesTypes } from '../types';
+import { courseStateType } from '../interfaces/courses';
 
-export interface courseStateType {
-  coursesList: Array<any>,
-  finishedCourses: Array<any>,
-  courseData: any | null,
-  isPresentCourses: boolean
-}
 const defaultState: courseStateType = {
   coursesList: [],
   finishedCourses: [],

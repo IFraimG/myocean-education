@@ -3,7 +3,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 //@ts-ignore
 import styles from "../../styles/auth/auth.module.scss";
 import { useState } from "react";
-import { userLogin } from "../../store/reducers/auth";
+import { userLogin } from "../../store/interfaces/auth";
 
 interface PropsType {
   loginUser: (usersData: userLogin) => void;

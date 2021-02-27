@@ -1,4 +1,4 @@
-import { userLogin, userRegistation } from './../reducers/auth';
+import { userLogin, userRegistation } from '../interfaces/auth';
 import { authTypes } from "../types"
 
 // middleware

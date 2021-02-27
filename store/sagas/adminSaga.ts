@@ -1,5 +1,5 @@
 import { getAllCoursesType, getAllCoursesSuccess, deleteCoursesType } from './../actions/admin';
-import { createCourseSuccess } from './../actions/courses';
+import { createCourseSuccess, createCourseType } from './../actions/courses';
 import { 
   setCreateUserActionType, deleteUserType, getCurrentUserType, getUserNameType, addUserCourseType,
   createUserSuccess, getAllUsersSuccess, setSpliceLoadingAction, setUserDataSuccess, setErrorAction, clearErrorAction
@@ -49,9 +49,7 @@ export function* deleteUser(action: deleteUserType) {
   yield call(usersRequests.dropUser, action.payload)
 }
 
-export function* createCourseWorker(action: any) {
-  console.log(action);
-  
+export function* createCourseWorker(action: createCourseType) {  
   let res = yield call(coursesRequests.createCourse, action.payload)
   yield put(createCourseSuccess(res.data))
 }

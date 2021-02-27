@@ -1,11 +1,15 @@
 import { Progress, Table, Tag, Tooltip } from "antd"
+import { useRouter } from "next/router"
 import s from "../../styles/courses/CoursesInfo.module.scss"
 
 interface LessonsType {
   lessons: Array<any> | null
 }
 const CourseLessons: React.FC<LessonsType> = ({ lessons }) => {
-
+  const router = useRouter()
+  const tableHandler = (record: any, rowIndex: number) => {
+    return {onClick: () => router.push(`/courses/lessons/${record.lessonID}`)}
+  }
 
   const columnsData = [
     {
@@ -70,11 +74,12 @@ const CourseLessons: React.FC<LessonsType> = ({ lessons }) => {
         { type: "контрольная работа", progress: 600, max: 1000 }
       ],
       finished: "В следущий понедельник",
-    },
-    
+      lessonID: "ujythregfwd",
+      courseID: "nbtgnhbgvfcxb"
+    }
   ]
   return (
-    <Table columns={columnsData} dataSource={data} pagination={false} />
+    <Table onRow={tableHandler} columns={columnsData} dataSource={data} pagination={false} />
   )
 }
 

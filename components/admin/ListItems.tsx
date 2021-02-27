@@ -2,7 +2,7 @@ import { Button, Table, Skeleton } from "antd";
 //@ts-ignore
 import { DeleteOutlined } from "@ant-design/icons";
 import { useState } from "react";
-import { sliceUser } from "../../store/reducers/admin";
+import { sliceUser } from "../../store/interfaces/admin";
 
 export type rowTypes = {
   title: string,

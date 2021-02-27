@@ -1,7 +1,7 @@
 //@ts-ignore
 import styles from "../../styles/auth/auth.module.scss"
 import { useEffect, useState } from "react";
-import { userLogin } from "../../store/reducers/auth";
+import { userLogin } from "../../store/interfaces/auth";
 import Registation from "./Registration";
 import Login from "./Login";
 import { useRouter } from "next/router";

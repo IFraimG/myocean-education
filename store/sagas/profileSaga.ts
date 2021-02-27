@@ -1,4 +1,4 @@
-import { courseType } from "./../reducers/profile";
+import { courseType } from "../interfaces/profile";
 import { getTasksActionSuccess, getTasksActionType, getCurrentLessonsType } from "./../actions/profile";
 import { put } from "redux-saga/effects";
 
